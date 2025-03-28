@@ -1,20 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Text?>
-<?import javafx.scene.text.Font?>
 
-<AnchorPane prefWidth="1920.0" prefHeight="1080.0" xmlns:fx="http://javafx.com/fxml">
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<AnchorPane prefWidth="1920.0" prefHeight="1080.0" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.psvm.ChatController" stylesheets="@styling/styles.css">
     <HBox fx:id="mainHBox" prefHeight="1080.0" prefWidth="1920.0">
         <fx:include source="nav-screen.fxml"/>
 
         <VBox fx:id="mainContent" style="-fx-padding: 30px;" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS" spacing="20.0">
-
             <AnchorPane prefHeight="60.0" style="-fx-padding: 10px; -fx-background-color: #ecf0f1;">
                 <Label layoutX="20.0" layoutY="15.0" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Teams"/>
+
+                <ComboBox fx:id="teamSelectie" layoutY="10.0"
+                          style="-fx-pref-width: 200px; -fx-background-color: white;
+                                 -fx-border-color: #2c3e50; -fx-border-radius: 5px;
+                                 -fx-padding: 5px; -fx-font-size: 14px;
+                                 -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 5, 0, 0, 2);" promptText="Team 1">
+                    <AnchorPane.rightAnchor>20.0</AnchorPane.rightAnchor>
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="Team 1"/>
+                            <String fx:value="Team 2"/>
+                            <String fx:value="Team 3"/>
+                        </FXCollections>
+                    </items>
+                </ComboBox>
             </AnchorPane>
 
+            <HBox fx:id="trelloBoard" spacing="70.0" HBox.hgrow="ALWAYS">
+                <VBox styleClass="todoColumn">
+                    <Label styleClass="labelCards" text="Product backlog"/>
+                    <VBox styleClass="todoCards"/>
+                    <Button styleClass="buttonCards" text="+ Een kaart toevoegen"/>
+                </VBox>
 
+                <VBox styleClass="todoColumn">
+                    <Label styleClass="labelCards" text="Sprint backlog"/>
+                    <VBox styleClass="todoCards"/>
+                    <Button styleClass="buttonCards" text="+ Een kaart toevoegen"/>
+                </VBox>
+
+                <VBox styleClass="todoColumn">
+                    <Label styleClass="labelCards" text="To Do"/>
+                    <VBox styleClass="todoCards"/>
+                    <Button styleClass="buttonCards" text="+ Een kaart toevoegen"/>
+                </VBox>
+
+                <VBox styleClass="todoColumn">
+                    <Label styleClass="labelCards" text="In Progress"/>
+                    <VBox styleClass="todoCards"/>
+                    <Button styleClass="buttonCards" text="+ Een kaart toevoegen"/>
+                </VBox>
+
+                <VBox styleClass="todoColumn">
+                    <Label styleClass="labelCards" text="Peer-review"/>
+                    <VBox styleClass="todoCards"/>
+                    <Button styleClass="buttonCards" text="+ Een kaart toevoegen"/>
+                </VBox>
+
+                <VBox styleClass="todoColumn">
+                    <Label styleClass="labelCards" text="Done"/>
+                    <VBox styleClass="todoCards"/>
+                    <Button styleClass="buttonCards" text="+ Een kaart toevoegen"/>
+                </VBox>
+            </HBox>
+        </VBox>
+
+        <VBox fx:id="chatContainer" maxHeight="1060" alignment="CENTER" prefWidth="350.0" maxWidth="350.0" style="-fx-padding: 10px;">
+            <VBox fx:id="chatBox" prefWidth="320.0" maxWidth="320.0" VBox.vgrow="ALWAYS">
+                <Label text="💬 Chat" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #333;"/>
+                <VBox fx:id="chatMessages" spacing="10.0" style="-fx-padding: 10px;" VBox.vgrow="ALWAYS"/>
+                <HBox spacing="5.0" style="-fx-padding: 5px;">
+                    <TextField fx:id="chatInput" HBox.hgrow="ALWAYS" promptText="Scheld Casper uit..."/>
+                    <Button text="▶" fx:id="sendButton"/>
+                </HBox>
+            </VBox>
         </VBox>
     </HBox>
 </AnchorPane>

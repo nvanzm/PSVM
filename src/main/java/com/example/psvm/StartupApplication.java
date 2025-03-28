@@ -12,7 +12,7 @@ public class StartupApplication extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(StartupApplication.class.getResource("team-screen.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 800, 600);
-        stage.setTitle("Hello!");
+        stage.setTitle("PSVM");
         stage.setScene(scene);
         stage.setMaximized(true);
         stage.show();
