@@ -1,16 +1,18 @@
 .todoColumn {
     -fx-background-color: #2c3e50;
-    -fx-padding: 7px;
+    -fx-padding: 10px;
     -fx-background-radius: 10px;
+    -fx-min-width: 120px;
 }
 
+
 .todoCards {
-    -fx-spacing: 10.0;
+    -fx-spacing: 5.0;
 }
 
 .labelCards {
     -fx-text-fill: white;
-    -fx-font-size: 16px;
+    -fx-font-size: 14px;
     -fx-font-weight: bold;
 }
 

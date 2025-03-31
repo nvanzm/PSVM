@@ -14,7 +14,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
-public class ChatController {
+public class ChatroomController {
 
     @FXML
     private VBox chatMessages;
@@ -22,12 +22,31 @@ public class ChatController {
     private TextField chatInput;
     @FXML
     private Button sendButton;
+    @FXML
+    private HBox mainHBox;
 
-    private Image profileImage = new Image(Objects.requireNonNull(getClass().getResource("/com/example/images/profile.png")).toExternalForm());
+    private final Image profileImage = new Image(Objects.requireNonNull(getClass().getResource("/com/example/images/profile.png")).toExternalForm());
+    private final ResolutionController resolutionManager = ResolutionController.getInstance();
 
     @FXML
     public void initialize() {
         sendButton.setOnAction(event -> sendMessage());
+        applyResolution(resolutionManager.getCurrentResolution());
+
+    }
+
+    private void applyResolution(String resolution) {
+        String[] dimensions = resolution.split("x");
+        if (dimensions.length == 2) {
+            try {
+                double width = Double.parseDouble(dimensions[0]);
+                double height = Double.parseDouble(dimensions[1]);
+                mainHBox.setPrefWidth(width);
+                mainHBox.setPrefHeight(height);
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void sendMessage() {
@@ -69,7 +88,6 @@ public class ChatController {
     }
 
     private boolean isCurrentUserMessage() {
-        // Hier kun je een logica toevoegen om te bepalen of het bericht van de huidige gebruiker is
         return true;
     }
 }
