@@ -32,15 +32,6 @@ public class ChatroomController {
         chat = new Chat(chatMessages);
         sendButton.setOnAction(event -> sendMessage());
         applyResolution(resolutionManager.getCurrentResolution());
-
-        UserDB userDB = new UserDB();
-        List<String> users = userDB.getAllUserNames();
-
-        if (users.isEmpty()) {
-            System.out.println("Geen gebruikers gevonden.");
-        } else {
-            System.out.println(users);
-        }
     }
 
     private void applyResolution(String resolution) {
