@@ -51,17 +51,17 @@
     -fx-background-radius: 10px;
 }
 
-.time-text-right {
-    -fx-alignment: CENTER_RIGHT;
-    -fx-font-size: 12px;
-    -fx-fill: gray;
-}
+/*.time-text-right {*/
+/*    -fx-alignment: CENTER_RIGHT;*/
+/*    -fx-font-size: 12px;*/
+/*    -fx-fill: gray;*/
+/*}*/
 
-.time-text-left {
-    -fx-alignment: CENTER_LEFT;
-    -fx-font-size: 12px;
-    -fx-fill: gray;
-}
+/*.time-text-left {*/
+/*    -fx-alignment: CENTER_LEFT;*/
+/*    -fx-font-size: 12px;*/
+/*    -fx-fill: gray;*/
+/*}*/
 
 .chat-message-right {
     -fx-alignment: CENTER_RIGHT !important;
