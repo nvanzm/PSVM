@@ -62,12 +62,15 @@ public class ChatroomController {
             messageBox.getChildren().add(messageLabel);
 
             if (isCurrentUserMessage()) {
-                ImageView profilePic = new ImageView(profileImage);
-                profilePic.setFitHeight(30);
-                profilePic.setFitWidth(30);
-                messageBox.getChildren().add(profilePic);
-                messageBox.setStyle("-fx-alignment: CENTER_RIGHT;");
-                timeText.setStyle("-fx-font-size: 12px; -fx-fill: gray; -fx-alignment: CENTER_RIGHT;");
+//                ImageView profilePic = new ImageView(profileImage);
+//                profilePic.setFitHeight(30);
+//                profilePic.setFitWidth(30);
+//                messageBox.getChildren().add(profilePic);
+//                messageBox.setStyle("-fx-alignment: CENTER_RIGHT;");
+//                timeText.setStyle("-fx-alignment: CENTER_RIGHT !important; -fx-font-size: 12px; -fx-fill: gray; ");
+
+                messageBox.getStyleClass().add("chat-message-right");
+                messageBox.getStyleClass().add("time-text-right");
             } else {
                 messageBox.setStyle("-fx-alignment: CENTER_LEFT;");
                 timeText.setStyle("-fx-font-size: 12px; -fx-fill: gray; -fx-alignment: CENTER_LEFT;");
