@@ -32,7 +32,6 @@ public class ChatroomController {
     public void initialize() {
         sendButton.setOnAction(event -> sendMessage());
         applyResolution(resolutionManager.getCurrentResolution());
-
     }
 
     private void applyResolution(String resolution) {
