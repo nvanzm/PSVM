@@ -1,4 +1,4 @@
-package com.example.psvm;
+package com.example.psvm.controllers;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

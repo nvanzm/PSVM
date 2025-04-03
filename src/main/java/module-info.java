@@ -8,4 +8,6 @@ module com.example.psvm {
 
     opens com.example.psvm to javafx.fxml;
     exports com.example.psvm;
+    exports com.example.psvm.controllers;
+    opens com.example.psvm.controllers to javafx.fxml;
 }

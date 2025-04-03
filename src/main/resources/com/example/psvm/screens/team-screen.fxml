@@ -3,7 +3,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.collections.FXCollections?>
 <?import java.lang.String?>
-<AnchorPane prefWidth="1920.0" prefHeight="1080.0" xmlns:fx="http://javafx.com/fxml" stylesheets="@styling/styles.css">
+<AnchorPane prefWidth="1920.0" prefHeight="1080.0" xmlns:fx="http://javafx.com/fxml" stylesheets="@../styling/styles.css">
     <HBox fx:id="mainHBox" prefHeight="1080.0" prefWidth="1920.0">
         <fx:include source="nav-screen.fxml"/>
 

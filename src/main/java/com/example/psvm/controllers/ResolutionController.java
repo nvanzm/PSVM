@@ -1,4 +1,4 @@
-package com.example.psvm;
+package com.example.psvm.controllers;
 
 import java.util.prefs.Preferences;
 

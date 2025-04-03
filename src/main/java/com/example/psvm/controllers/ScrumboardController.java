@@ -1,13 +1,9 @@
-package com.example.psvm;
+package com.example.psvm.controllers;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.ComboBox;
 import javafx.scene.layout.HBox;
 
-public class SettingsController {
-
-    @FXML
-    private ComboBox<String> resolutionComboBox;
+public class ScrumboardController {
 
     @FXML
     private HBox mainHBox;
@@ -16,14 +12,8 @@ public class SettingsController {
 
     @FXML
     public void initialize() {
-        resolutionComboBox.setValue(resolutionManager.getCurrentResolution());
         applyResolution(resolutionManager.getCurrentResolution());
 
-        resolutionComboBox.setOnAction(event -> {
-            String selectedResolution = resolutionComboBox.getValue();
-            resolutionManager.setResolution(selectedResolution);
-            applyResolution(selectedResolution);
-        });
     }
 
     private void applyResolution(String resolution) {
