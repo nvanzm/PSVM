@@ -1,6 +1,7 @@
 package com.example.psvm.controllers;
 
 import com.example.psvm.database.LoginDB;
+import com.example.psvm.model.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,7 +17,11 @@ import java.io.*;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 
+import static com.example.psvm.Startup.getUser;
+
 public class LoginController {
+    private User user;
+
 
     @FXML
     private TextField usernameField;
@@ -29,6 +34,10 @@ public class LoginController {
 
     private final LoginDB loginDB = new LoginDB();
 
+
+    public LoginController() {
+        this.user = getUser();
+    }
     @FXML
     public void handleCloseAction(ActionEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -45,18 +54,11 @@ public class LoginController {
             return;
         }
 
-        // Controleer of gebruiker al is ingelogd via bestand
-        if (DeviceHerkenning.isUserLoggedIn(username, deviceId)) {
-            showSuccess("Welkom terug, " + username + "!");
-            switchToView(event, "/com/example/psvm/screens/chatroom-screen.fxml");
-            return;
-        }
-
         // Als de gebruiker geldig is in de database
-        if (loginDB.isUserValid(username)) {
-            if (rememberMeCheckbox.isSelected()) {
-                DeviceHerkenning.saveLogin(username, deviceId);  // Opslaan van login
-            }
+        if (user.login(username)) {
+//            if (rememberMeCheckbox.isSelected()) {
+//                DeviceHerkenning.saveLogin(username, deviceId);  // Opslaan van login
+//            }
             showSuccess("Succesvol ingelogd!");
             switchToView(event, "/com/example/psvm/screens/chatroom-screen.fxml");
         } else {

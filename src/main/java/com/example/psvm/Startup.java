@@ -1,5 +1,6 @@
 package com.example.psvm;
 
+import com.example.psvm.model.User;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -11,11 +12,13 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class Startup extends Application {
+    private static User user;
 
     @Override
     public void start(Stage stage) throws IOException {
         String loginDataFilePath = "login_data.txt";
         File loginDataFile = new File(loginDataFilePath);
+        this.user = new User();
 
         if (loginDataFile.exists()) {
             String storedData = readStoredLoginData(loginDataFile);
@@ -58,5 +61,9 @@ public class Startup extends Application {
 
     public static void main(String[] args) {
         launch();
+    }
+
+    public static User getUser() {
+        return user;
     }
 }
