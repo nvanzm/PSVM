@@ -16,14 +16,14 @@ public class SettingsController {
 
     @FXML
     public void initialize() {
-        resolutionComboBox.setValue(resolutionManager.getCurrentResolution());
-        applyResolution(resolutionManager.getCurrentResolution());
-
-        resolutionComboBox.setOnAction(event -> {
-            String selectedResolution = resolutionComboBox.getValue();
-            resolutionManager.setResolution(selectedResolution);
-            applyResolution(selectedResolution);
-        });
+//        resolutionComboBox.setValue(resolutionManager.getCurrentResolution());
+//        applyResolution(resolutionManager.getCurrentResolution());
+//
+//        resolutionComboBox.setOnAction(event -> {
+//            String selectedResolution = resolutionComboBox.getValue();
+//            resolutionManager.setResolution(selectedResolution);
+//            applyResolution(selectedResolution);
+//        });
     }
 
 //    private void applyResolution(String resolution) {

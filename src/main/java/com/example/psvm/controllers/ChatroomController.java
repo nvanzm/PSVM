@@ -1,18 +1,20 @@
 package com.example.psvm.controllers;
 
 import com.example.psvm.model.Chat;
+import com.example.psvm.model.Message;
+import com.example.psvm.model.User;
 import com.example.psvm.util.errors.DomainException;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+import java.util.List;
+
 import static com.example.psvm.Startup.getChat;
+import static com.example.psvm.Startup.getUser;
 
 public class ChatroomController {
     @FXML
@@ -27,31 +29,30 @@ public class ChatroomController {
     private Label errorLabel;
     @FXML
     private VBox chatBox;
+    @FXML
+    private ScrollPane scrollPane;
 
     private Chat chat;
-
+    private User user;
+    private List<Message> messages;
+    private int userId;
     @FXML
     public void initialize() {
         this.chat = getChat();  // Model instance
+        this.user = getUser();
+        this.userId = user.getId();
+
         sendButton.setOnAction(event -> sendMessage());
-
-        mainHBox.heightProperty().addListener((observable, oldValue, newValue) -> {
-            System.out.println("mainHBox width: " + newValue);
-
-            // Now bind chatContainer's width to 90% of the parent container's width
-            chatBox.prefHeightProperty().bind(mainHBox.heightProperty());
-
-            // Debugging: Print chatContainer's width whenever it changes
-            chatBox.heightProperty().addListener((obs, oldVal, newVal) -> {
-                System.out.println("chatContainer width: " + newVal);
-            });
-        });
-
+        chatBox.prefHeightProperty().bind(mainHBox.heightProperty());
+        scrollPane.setVvalue(1.0);
+        displayMessages();
         mainHBox.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
             if(key.getCode()== KeyCode.ENTER) {
                 sendMessage();
             }
         });
+
+
     }
 
 
@@ -59,8 +60,8 @@ public class ChatroomController {
         String messageText = chatInput.getText();
 
         try {
-            chat.sendChatMessage(messageText);
-            displayMessage(messageText, true);
+            chat.sendChatMessage(userId, messageText);
+            displayMessages();
             chatInput.clear();
         } catch (DomainException e) {
             showErrorMessage(e.getMessage());
@@ -69,20 +70,37 @@ public class ChatroomController {
         }
     }
 
-    private void displayMessage(String messageText, boolean isCurrentUser) {
-        Label messageLabel = new Label(messageText);
-        messageLabel.getStyleClass().add("message-label");
+    private void displayMessages() {
+        this.messages = chat.getMessages();
 
-        HBox messageBox = new HBox(10);
-        messageBox.getChildren().add(messageLabel);
+        chatMessages.getChildren().clear();
 
-        if (isCurrentUser) {
-            messageBox.setStyle("-fx-alignment: CENTER_RIGHT;");
-        } else {
-            messageBox.setStyle("-fx-alignment: CENTER_LEFT;");
+        // Loop through the messages and display each one
+        for (Message message : messages) {
+            String username = user.getNameById(message.getUserId());
+
+            Label usernameLabel = new Label(username);
+            usernameLabel.getStyleClass().add("username-label");
+            usernameLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: #333; -fx-font-size: 12px;");
+
+            Label messageLabel = new Label(message.getText());  // Use message.getText() for the actual message text
+            messageLabel.getStyleClass().add("message-label");
+
+            HBox messageBox = new HBox(10);
+
+            VBox messageContent = new VBox(3);
+            messageContent.getChildren().add(usernameLabel);
+            messageContent.getChildren().add(messageLabel);
+
+            messageBox.getChildren().add(messageContent);
+            if (message.getUserId() == user.getId()) {
+                messageBox.setStyle("-fx-alignment: CENTER_RIGHT;");
+            } else {
+                messageBox.setStyle("-fx-alignment: CENTER_LEFT;");
+            }
+
+            chatMessages.getChildren().add(messageBox);
         }
-
-        chatMessages.getChildren().add(messageBox);
     }
 
     private void showErrorMessage(String message) {

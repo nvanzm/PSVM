@@ -7,7 +7,7 @@
 
     <!-- Login container -->
     <VBox fx:id="loginContainer" spacing="20" alignment="CENTER" style="-fx-background-color: rgba(255, 255, 255, 0.15);
-            -fx-background-radius: 15; -fx-padding: 30; -fx-pref-width: 450;">
+            -fx-background-radius: 15; -fx-padding: 30; -fx-max-width: 450;">
 
         <!-- Titel -->
         <Label text="✨ PSVM ✨" style="-fx-font-size: 32; -fx-font-weight: bold; -fx-text-fill: #00d4ff;

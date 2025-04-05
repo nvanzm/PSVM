@@ -4,6 +4,8 @@ import com.example.psvm.controllers.LoginController;
 import com.example.psvm.database.LoginDB;
 import javafx.event.ActionEvent;
 
+import java.util.Optional;
+
 public class User {
     private int id;
     private String userName;
@@ -18,9 +20,11 @@ public class User {
             throw new RuntimeException("Username cannot be empty");
         }
 
-        // Als de gebruiker geldig is in de database
-        if (loginDB.isUserValid(username)) {
-            this.userName = username;
+        Optional<Integer> userIdOpt = loginDB.getUserIdByUsername(username);
+
+        if (userIdOpt.isPresent()) {
+            this.id = userIdOpt.get();
+            System.out.println(this.id);
             return true;
         } else {
             throw new RuntimeException("Invalid username");
@@ -28,7 +32,23 @@ public class User {
     }
 
 
+
     public boolean isUserLoggedIn(String username) {
         return this.userName != null && this.userName.equals(username);
+    }
+
+    public String getNameById(int id) {
+        Optional<String> userIdOpt = loginDB.getUsernameById(id);
+
+        if (userIdOpt.isPresent()) {
+            System.out.println(this.id);
+            return userIdOpt.get();
+        } else {
+            throw new RuntimeException("Invalid username");
+        }
+    }
+
+    public int getId() {
+        return id;
     }
 }
