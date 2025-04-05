@@ -9,10 +9,9 @@ public class User {
     private String userName;
     private final LoginDB loginDB = new LoginDB();
 
-    public User() {
-
-    }
-
+//    public User() {
+//
+//    }
 
     public boolean login(String username) {
         if (username.isEmpty()) {
@@ -26,5 +25,10 @@ public class User {
         } else {
             throw new RuntimeException("Invalid username");
         }
+    }
+
+
+    public boolean isUserLoggedIn(String username) {
+        return this.userName != null && this.userName.equals(username);
     }
 }

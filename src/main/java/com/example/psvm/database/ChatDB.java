@@ -18,7 +18,7 @@ public class ChatDB {
 
         } catch (SQLException e) {
             System.err.println("Fout bij sturen van bericht: " + e.getMessage());
-            return false;
+            throw new RuntimeException("Fout bij versturen van bericht");
         }
     }
 }
