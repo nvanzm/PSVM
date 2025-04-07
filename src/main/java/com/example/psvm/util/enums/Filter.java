@@ -1,6 +1,6 @@
 package com.example.psvm.util.enums;
 
-public enum ParentType {
+public enum Filter {
     TEAM,
     WORKITEM
 }

@@ -16,27 +16,27 @@ public class SettingsController {
 
     @FXML
     public void initialize() {
-//        resolutionComboBox.setValue(resolutionManager.getCurrentResolution());
-//        applyResolution(resolutionManager.getCurrentResolution());
-//
-//        resolutionComboBox.setOnAction(event -> {
-//            String selectedResolution = resolutionComboBox.getValue();
-//            resolutionManager.setResolution(selectedResolution);
-//            applyResolution(selectedResolution);
-//        });
+        resolutionComboBox.setValue(resolutionManager.getCurrentResolution());
+        applyResolution(resolutionManager.getCurrentResolution());
+
+        resolutionComboBox.setOnAction(event -> {
+            String selectedResolution = resolutionComboBox.getValue();
+            resolutionManager.setResolution(selectedResolution);
+            applyResolution(selectedResolution);
+        });
     }
 
-//    private void applyResolution(String resolution) {
-//        String[] dimensions = resolution.split("x");
-//        if (dimensions.length == 2) {
-//            try {
-//                double width = Double.parseDouble(dimensions[0]);
-//                double height = Double.parseDouble(dimensions[1]);
-//                mainHBox.setPrefWidth(width);
-//                mainHBox.setPrefHeight(height);
-//            } catch (NumberFormatException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//    }
+    private void applyResolution(String resolution) {
+        String[] dimensions = resolution.split("x");
+        if (dimensions.length == 2) {
+            try {
+                double width = Double.parseDouble(dimensions[0]);
+                double height = Double.parseDouble(dimensions[1]);
+                mainHBox.setPrefWidth(width);
+                mainHBox.setPrefHeight(height);
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

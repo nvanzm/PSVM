@@ -9,6 +9,7 @@ public class ResolutionController {
 
     private ResolutionController() {
         prefs = Preferences.userNodeForPackage(ResolutionController.class);
+        currentResolution = prefs.get("resolution", "1920x1080");
     }
 
     public static ResolutionController getInstance() {
