@@ -1,7 +1,6 @@
 package com.example.psvm.model;
 
 import com.example.psvm.database.ChatDB;
-import com.example.psvm.util.enums.Filter;
 import com.example.psvm.util.errors.DomainException;
 
 import java.util.ArrayList;
@@ -14,7 +13,7 @@ public class Chat {
     private final ChatDB chatDB;
     private User currentUser;
     private List<Message> messages;
-    private List<Message> filteredMessages;
+
 
 
     public Chat(ChatDB chatDB) {
@@ -33,16 +32,7 @@ public class Chat {
         messages = chatDB.getMessages();
     }
 
-    public List<Message> getMessages(Optional<Filter> filter) {
-        if (filter.isPresent()) {
-            switch (filter.get()) {
-                case TEAM:
-                    loadMessages();
-                    break;
-                case WORKITEM:
-
-            }
-        }
-        return this.messages;
+    public List<Message> getMessages() {
+        return chatDB.getMessages();
     }
 }
