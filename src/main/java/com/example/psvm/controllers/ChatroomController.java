@@ -38,6 +38,7 @@ public class ChatroomController {
     private User user;
     private List<Message> messages;
     private int userId;
+    
     @FXML
     public void initialize() {
         this.chat = getChat();  // Model instance
@@ -55,8 +56,6 @@ public class ChatroomController {
                 sendMessage();
             }
         });
-
-
     }
 
     private void applyResolution(String resolution) {
