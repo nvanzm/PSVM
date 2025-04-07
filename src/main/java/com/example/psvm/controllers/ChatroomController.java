@@ -32,6 +32,8 @@ public class ChatroomController {
     @FXML
     private ScrollPane scrollPane;
 
+    private final ResolutionController resolutionManager = ResolutionController.getInstance();
+
     private Chat chat;
     private User user;
     private List<Message> messages;
@@ -41,6 +43,8 @@ public class ChatroomController {
         this.chat = getChat();  // Model instance
         this.user = getUser();
         this.userId = user.getId();
+
+        applyResolution(resolutionManager.getCurrentResolution());
 
         sendButton.setOnAction(event -> sendMessage());
         chatBox.prefHeightProperty().bind(mainHBox.heightProperty());
@@ -55,6 +59,19 @@ public class ChatroomController {
 
     }
 
+    private void applyResolution(String resolution) {
+        String[] dimensions = resolution.split("x");
+        if (dimensions.length == 2) {
+            try {
+                double width = Double.parseDouble(dimensions[0]);
+                double height = Double.parseDouble(dimensions[1]);
+                mainHBox.setPrefWidth(width);
+                mainHBox.setPrefHeight(height);
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     private void sendMessage() {
         String messageText = chatInput.getText();
