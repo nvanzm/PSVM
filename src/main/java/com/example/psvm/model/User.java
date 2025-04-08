@@ -31,6 +31,8 @@ public class User {
         }
     }
 
+
+
     public boolean isUserLoggedIn(String username) {
         return this.userName != null && this.userName.equals(username);
     }
