@@ -11,10 +11,6 @@ public class User {
     private String userName;
     private final LoginDB loginDB = new LoginDB();
 
-//    public User() {
-//
-//    }
-
     public boolean login(String username) {
         if (username.isEmpty()) {
             throw new RuntimeException("Username cannot be empty");
@@ -30,8 +26,6 @@ public class User {
             throw new RuntimeException("Invalid username");
         }
     }
-
-
 
     public boolean isUserLoggedIn(String username) {
         return this.userName != null && this.userName.equals(username);
