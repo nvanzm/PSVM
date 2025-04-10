@@ -41,7 +41,8 @@ public class User {
         Optional<String> userIdOpt = loginDB.getUsernameById(id);
 
         if (userIdOpt.isPresent()) {
-            System.out.println(this.id);
+            //tijdelijk uitgezet want het print als een while true..
+//            System.out.println(this.id);
             return userIdOpt.get();
         } else {
             throw new RuntimeException("Invalid username");

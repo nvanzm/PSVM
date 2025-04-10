@@ -4,12 +4,16 @@ import com.example.psvm.model.Chat;
 import com.example.psvm.model.Message;
 import com.example.psvm.model.User;
 import com.example.psvm.util.errors.DomainException;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 import java.util.List;
 
@@ -51,11 +55,19 @@ public class ChatroomController {
         chatBox.prefHeightProperty().bind(mainHBox.heightProperty());
         scrollPane.setVvalue(1.0);
         displayMessages();
+
         mainHBox.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
             if(key.getCode()== KeyCode.ENTER) {
                 sendMessage();
             }
         });
+
+        //chatbox refresh
+        Timeline refreshTimeline = new Timeline(
+                new KeyFrame(Duration.seconds(3), event -> displayMessages())
+        );
+        refreshTimeline.setCycleCount(Timeline.INDEFINITE);
+        refreshTimeline.play();
     }
 
     private void applyResolution(String resolution) {
@@ -84,6 +96,7 @@ public class ChatroomController {
         } catch (Exception e) {
             showErrorMessage("Er is een fout opgetreden.");
         }
+        Platform.runLater(() -> scrollPane.setVvalue(1.0));
     }
 
     private void displayMessages() {
