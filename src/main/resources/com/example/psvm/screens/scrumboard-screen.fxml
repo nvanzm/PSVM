@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<AnchorPane prefWidth="1920.0" prefHeight="1080.0" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.psvm.controllers.ScrumboardController" stylesheets="@../styling/styles.css">
+    <HBox fx:id="mainHBox" prefHeight="1080.0" prefWidth="1920.0">
+        <fx:include source="nav-screen.fxml"/>
+
+        <VBox fx:id="mainContent" style="-fx-padding: 30px;" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS" spacing="20.0">
+            <HBox fx:id="trelloBoard" spacing="55.0" HBox.hgrow="ALWAYS">
+                <VBox styleClass="todoColumn">
+                    <Label styleClass="labelCards" text="Product backlog"/>
+                    <VBox styleClass="todoCards"/>
+                    <Button styleClass="buttonCards" text="+ Een kaart toevoegen"/>
+                </VBox>
+
+                <VBox styleClass="todoColumn">
+                    <Label styleClass="labelCards" text="Sprint backlog"/>
+                    <VBox styleClass="todoCards"/>
+                    <Button styleClass="buttonCards" text="+ Een kaart toevoegen"/>
+                </VBox>
+
+                <VBox styleClass="todoColumn">
+                    <Label styleClass="labelCards" text="To Do"/>
+                    <VBox styleClass="todoCards"/>
+                    <Button styleClass="buttonCards" text="+ Een kaart toevoegen"/>
+                </VBox>
+
+                <VBox styleClass="todoColumn">
+                    <Label styleClass="labelCards" text="In Progress"/>
+                    <VBox styleClass="todoCards"/>
+                    <Button styleClass="buttonCards" text="+ Een kaart toevoegen"/>
+                </VBox>
+
+                <VBox styleClass="todoColumn">
+                    <Label styleClass="labelCards" text="Peer-review"/>
+                    <VBox styleClass="todoCards"/>
+                    <Button styleClass="buttonCards" text="+ Een kaart toevoegen"/>
+                </VBox>
+
+                <VBox styleClass="todoColumn">
+                    <Label styleClass="labelCards" text="Done"/>
+                    <VBox styleClass="todoCards"/>
+                    <Button styleClass="buttonCards" text="+ Een kaart toevoegen"/>
+                </VBox>
+            </HBox>
+        </VBox>
+    </HBox>
+</AnchorPane>

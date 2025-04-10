@@ -1,5 +1,6 @@
-package com.example.psvm;
+package com.example.psvm.controllers;
 
+import com.example.psvm.NavigationManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,12 +28,24 @@ public class NavigationController {
         stage.show();
     }
 
-    public void team(ActionEvent event) throws IOException {
-        switchScene(event, "team-screen.fxml");
+    public void chatroom (ActionEvent event) throws IOException {
+        NavigationManager.switchTo("/com/example/psvm/screens/chatroom-screen.fxml");
     }
 
-    public void profiel(ActionEvent event) throws IOException {
-        switchScene(event, "profiel-screen.fxml");
+    public void scrumboard(ActionEvent event) throws IOException {
+        NavigationManager.switchTo("/com/example/psvm/screens/scrumboard-screen.fxml");
+    }
+
+    public void team (ActionEvent event) throws IOException {
+        NavigationManager.switchTo("/com/example/psvm/screens/team-screen.fxml");
+    }
+
+    public void profiel (ActionEvent event) throws IOException {
+        NavigationManager.switchTo("/com/example/psvm/screens/profiel-screen.fxml");
+    }
+
+    public void settings (ActionEvent event) throws IOException {
+        NavigationManager.switchTo("/com/example/psvm/screens/settings-screen.fxml");
     }
 
     public void logout(ActionEvent event) {
@@ -48,7 +61,4 @@ public class NavigationController {
         }
     }
 
-    public void line(ActionEvent event) throws IOException {
-
-    }
 }
