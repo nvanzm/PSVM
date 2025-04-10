@@ -11,10 +11,6 @@ public class User {
     private String userName;
     private final LoginDB loginDB = new LoginDB();
 
-//    public User() {
-//
-//    }
-
     public boolean login(String username) {
         if (username.isEmpty()) {
             throw new RuntimeException("Username cannot be empty");
@@ -31,8 +27,6 @@ public class User {
         }
     }
 
-
-
     public boolean isUserLoggedIn(String username) {
         return this.userName != null && this.userName.equals(username);
     }
@@ -41,7 +35,8 @@ public class User {
         Optional<String> userIdOpt = loginDB.getUsernameById(id);
 
         if (userIdOpt.isPresent()) {
-            System.out.println(this.id);
+            //tijdelijk uitgezet want het print als een while true..
+//            System.out.println(this.id);
             return userIdOpt.get();
         } else {
             throw new RuntimeException("Invalid username");

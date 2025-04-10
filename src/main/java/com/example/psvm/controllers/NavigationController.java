@@ -1,6 +1,7 @@
 package com.example.psvm.controllers;
 
 import com.example.psvm.NavigationManager;
+import com.example.psvm.model.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,17 +9,31 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.Objects;
+import java.util.Optional;
+import static com.example.psvm.Startup.getUser;
+
 
 public class NavigationController {
 
     @FXML
     private AnchorPane scenePane;
+
+    @FXML
+    private Button WelkomNaam;
+
+    private User user;
+
+    public void initialize() {
+        this.user = getUser();
+        WelkomNaam.setText("Welkom terug, " + user.getNameById(user.getId()) + "!");
+    }
 
     private void switchScene(ActionEvent event, String fxmlFileName) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlFileName)));
