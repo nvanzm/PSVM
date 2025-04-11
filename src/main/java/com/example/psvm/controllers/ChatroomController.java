@@ -126,8 +126,8 @@ public class ChatroomController {
                 messageBox.setStyle("-fx-alignment: CENTER_RIGHT;");
             } else {
                 messageBox.setStyle("-fx-alignment: CENTER_LEFT;");
+                Platform.runLater(() -> scrollPane.setVvalue(1.0));
             }
-
             chatMessages.getChildren().add(messageBox);
         }
     }
