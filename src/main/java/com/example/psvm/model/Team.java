@@ -19,6 +19,7 @@ public class Team {
     public int getId() {
         return id;
     }
+
     public String getName() {
         return name;
     }
@@ -26,6 +27,7 @@ public class Team {
     public void setId(int id) {
         this.id = id;
     }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -46,6 +48,15 @@ public class Team {
             System.out.println("Team not added");
             return false;
         }
+    }
+
+    public String getTeamNameById(int team_id) {
+        Optional<String> teamNameOpt = teamDB.getTeamNameById(team_id);
+        if (teamNameOpt.isPresent()) {
+            return teamNameOpt.get();
+        }
+        System.out.println("Teamnaam niet gevonden voor ID: " + team_id);
+        return null;
     }
 
     public List<String> getAllTeamNames () {

@@ -51,5 +51,26 @@ public class TeamDB {
 
         return teams;
     }
+
+    public Optional<String> getTeamNameById(int team_id) {
+        String query = "SELECT naam FROM team WHERE id = ?";
+
+        try (Connection connection = ConnectionDB.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setInt(1, team_id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                return Optional.of(resultSet.getString("naam"));
+            } else {
+                return Optional.empty();
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Fout bij ophalen van de teamnaam: " + e.getMessage());
+            throw new RuntimeException("Databasefout bij ophalen van de teamnaam", e);
+        }
+    }
 }
 
