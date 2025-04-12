@@ -26,11 +26,11 @@ public class Chat {
         chatDB.sendMessage(userId, messageText, team_id);
     }
 
-    private void loadMessages() {
-        messages = chatDB.getMessages();
-    }
+//    private void loadMessages(int team_id) {
+//        messages = chatDB.getMessages(team_id);
+//    }
 
-    public List<Message> getMessages() {
-        return chatDB.getMessages();
+    public List<Message> getMessages(int team_id) {
+        return chatDB.getMessages(team_id);
     }
 }

@@ -48,6 +48,7 @@ public class ChatroomController {
     private int userId;
     private int team_id;
     private String team_name;
+    private int currentTeam;
 
     @FXML
     public void initialize() {
@@ -116,13 +117,12 @@ public class ChatroomController {
     }
 
     private void displayMessages() {
-        this.messages = chat.getMessages();
+        this.messages = chat.getMessages(team_id);
 
         chatMessages.getChildren().clear();
 
         for (Message message : messages) {
             String username = user.getNameById(message.getUserId());
-            int team_id = user.getTeamIdById(message.getTeamId());
 
             Label usernameLabel = new Label(username);
             usernameLabel.getStyleClass().add("username-label");
