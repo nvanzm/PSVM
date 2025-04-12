@@ -42,12 +42,16 @@ public class ChatroomController {
     private User user;
     private List<Message> messages;
     private int userId;
-    
+    private int team_id;
+
     @FXML
     public void initialize() {
         this.chat = getChat();  // Model instance
         this.user = getUser();
         this.userId = user.getId();
+        this.team_id = user.getTeamIdById(userId);
+
+        System.out.println("Team ID: " + user.getTeamIdById(userId));
 
         applyResolution(resolutionManager.getCurrentResolution());
 
@@ -88,7 +92,7 @@ public class ChatroomController {
         String messageText = chatInput.getText();
 
         try {
-            chat.sendChatMessage(userId, messageText);
+            chat.sendChatMessage(userId, messageText, team_id);
             displayMessages();
             chatInput.clear();
         } catch (DomainException e) {
@@ -107,6 +111,7 @@ public class ChatroomController {
         // Loop through the messages and display each one
         for (Message message : messages) {
             String username = user.getNameById(message.getUserId());
+            int team_id = user.getTeamIdById(message.getTeamId());
 
             Label usernameLabel = new Label(username);
             usernameLabel.getStyleClass().add("username-label");
@@ -126,8 +131,8 @@ public class ChatroomController {
                 messageBox.setStyle("-fx-alignment: CENTER_RIGHT;");
             } else {
                 messageBox.setStyle("-fx-alignment: CENTER_LEFT;");
+                Platform.runLater(() -> scrollPane.setVvalue(1.0));
             }
-
             chatMessages.getChildren().add(messageBox);
         }
     }

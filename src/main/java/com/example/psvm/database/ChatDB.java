@@ -10,14 +10,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChatDB {
-    public boolean sendMessage(int userId, String message) {
-        String query = "INSERT INTO bericht (user_id, bericht) VALUES (?, ?)";
+    public boolean sendMessage(int userId, String message, int team_id) {
+        String query = "INSERT INTO bericht (user_id, bericht, team_id) VALUES (?, ?, ?)";
 
         try (Connection connection = ConnectionDB.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             preparedStatement.setInt(1, userId);
             preparedStatement.setString(2, message);
+            preparedStatement.setInt(3, team_id);
 
             int rowsAffected = preparedStatement.executeUpdate();
             return rowsAffected > 0;
@@ -29,7 +30,7 @@ public class ChatDB {
     }
 
     public List<Message> getMessages() {
-        String query = "SELECT id, bericht, user_id FROM bericht ORDER BY id ASC";  // Ordering by id to retrieve in chronological order
+        String query = "SELECT id, bericht, user_id, team_id FROM bericht ORDER BY id ASC";  // Ordering by id to retrieve in chronological order
         List<Message> messages = new ArrayList<>();
 
         try (Connection connection = ConnectionDB.getConnection();
@@ -41,6 +42,7 @@ public class ChatDB {
                 message.setId(resultSet.getInt("id"));
                 message.setText(resultSet.getString("bericht"));
                 message.setUserId(resultSet.getInt("user_id"));
+                message.setTeamId(resultSet.getInt("team_id"));
 //                // Assuming parentId is optional, otherwise adjust logic to handle it
 //                message.setParentId(resultSet.getInt("parent_id"));
 

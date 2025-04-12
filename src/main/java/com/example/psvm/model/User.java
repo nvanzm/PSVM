@@ -7,6 +7,7 @@ import java.util.Optional;
 
 public class User {
     private int id;
+    private int team_id;
     private String userName;
     private final LoginDB loginDB = new LoginDB();
     private String team;
@@ -40,7 +41,7 @@ public class User {
 
         if (userIdOpt.isPresent()) {
             this.id = userIdOpt.get();
-            System.out.println(this.id);
+            System.out.println("User ID: " + this.id);
             return true;
         } else {
             throw new RuntimeException("Invalid username");
@@ -63,7 +64,20 @@ public class User {
         }
     }
 
+    public int getTeamIdById(int team_id) {
+        Optional<String> teamIdOpt = loginDB.getTeamIdById(team_id);
+        if (teamIdOpt.isPresent()) {
+            return Integer.parseInt(teamIdOpt.get());
+        }
+        System.out.println(team_id);
+        return team_id;
+    }
+
     public int getId() {
         return id;
+    }
+
+    public int getTeamId() {
+        return team_id;
     }
 }

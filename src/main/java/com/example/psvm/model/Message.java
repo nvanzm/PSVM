@@ -4,6 +4,7 @@ public class Message {
     private int id;
     private String text;
     private int userId;
+    private int team_id;
     private int parentId;
 
     // Getters and setters
@@ -37,5 +38,13 @@ public class Message {
 
     public void setParentId(int parentId) {
         this.parentId = parentId;
+    }
+
+    public int getTeamId() {
+        return team_id;
+    }
+
+    public void setTeamId(int team_id) {
+        this.team_id = team_id;
     }
 }
