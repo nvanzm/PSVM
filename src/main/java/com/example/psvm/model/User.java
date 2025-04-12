@@ -1,8 +1,7 @@
 package com.example.psvm.model;
 
-import com.example.psvm.controllers.LoginController;
 import com.example.psvm.database.LoginDB;
-import javafx.event.ActionEvent;
+import com.example.psvm.database.UserDB;
 
 import java.util.Optional;
 
@@ -10,6 +9,27 @@ public class User {
     private int id;
     private String userName;
     private final LoginDB loginDB = new LoginDB();
+    private String team;
+    private UserDB userDB = new UserDB();
+
+    private void setTeam(String team) {
+        this.team = team;
+    }
+    public String getTeam() {
+        return team;
+    }
+
+    public boolean joinTeam(String gekozenTeam, int userID) {
+        setTeam(gekozenTeam);
+        Optional<Integer> teamIDFromTeamName = userDB.getIDFromTeamName(gekozenTeam);
+        boolean toegevoegd = userDB.addUserToTeam(userID, teamIDFromTeamName.get());
+        if (toegevoegd) {
+            System.out.println("User toegevoegd aan team" + gekozenTeam);
+            return true;
+        }
+        System.out.println("User toevoegen gefaald.");
+        return false;
+    }
 
     public boolean login(String username) {
         if (username.isEmpty()) {

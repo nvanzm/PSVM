@@ -16,7 +16,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.Objects;
-import java.util.Optional;
+
 import static com.example.psvm.Startup.getUser;
 
 
@@ -26,13 +26,13 @@ public class NavigationController {
     private AnchorPane scenePane;
 
     @FXML
-    private Button WelkomNaam;
+    private Button welkomNaam;
 
     private User user;
 
     public void initialize() {
         this.user = getUser();
-        WelkomNaam.setText("Welkom terug, " + user.getNameById(user.getId()) + "!");
+        welkomNaam.setText("Welkom terug, " + user.getNameById(user.getId()) + "!");
     }
 
     private void switchScene(ActionEvent event, String fxmlFileName) throws IOException {

@@ -1,7 +1,9 @@
 package com.example.psvm;
 
 import com.example.psvm.database.ChatDB;
+import com.example.psvm.database.TeamDB;
 import com.example.psvm.model.Chat;
+import com.example.psvm.model.Team;
 import com.example.psvm.model.User;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -17,7 +19,7 @@ public class Startup extends Application {
     private static User user;
     private static Chat chat;
     private static ChatDB chatDB;
-
+    private static Team team;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -28,6 +30,7 @@ public class Startup extends Application {
         user = new User();
         chatDB = new ChatDB();
         chat = new Chat(chatDB);
+        team = new Team();
 
         if (loginDataFile.exists()) {
             String storedData = readStoredLoginData(loginDataFile);
@@ -43,7 +46,7 @@ public class Startup extends Application {
     private void loadMainScreen(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Startup.class.getResource("/com/example/psvm/screens/chatroom-screen.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 800, 600);
-        stage.setTitle("Loef");
+        stage.setTitle("Teamflow");
         stage.setScene(scene);
         stage.setMaximized(true);
         stage.show();
@@ -71,4 +74,7 @@ public class Startup extends Application {
         return chat;
     }
 
+    public static Team getTeam() {
+        return team;
+    }
 }
