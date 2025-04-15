@@ -2,6 +2,7 @@ package com.example.psvm.controllers;
 
 import com.example.psvm.model.Chat;
 import com.example.psvm.model.Message;
+import com.example.psvm.model.Team;
 import com.example.psvm.model.User;
 import com.example.psvm.util.errors.DomainException;
 import javafx.animation.KeyFrame;
@@ -35,19 +36,35 @@ public class ChatroomController {
     private VBox chatBox;
     @FXML
     private ScrollPane scrollPane;
+    @FXML
+    private Label teamChat;
 
     private final ResolutionController resolutionManager = ResolutionController.getInstance();
 
     private Chat chat;
+    private Team team;
     private User user;
     private List<Message> messages;
     private int userId;
-    
+    private int team_id;
+    private String team_name;
+    private int currentTeam;
+
     @FXML
     public void initialize() {
-        this.chat = getChat();  // Model instance
+        this.chat = getChat();
         this.user = getUser();
         this.userId = user.getId();
+
+        this.team = new Team();
+
+        this.team_id = user.getTeamIdById(userId);
+        this.team_name = team.getTeamNameById(team_id);
+
+
+        teamChat.setText("\uD83D\uDCAC Chat - " + team_name);
+
+        System.out.println("Team ID: " + user.getTeamIdById(userId));
 
         applyResolution(resolutionManager.getCurrentResolution());
 
@@ -88,7 +105,7 @@ public class ChatroomController {
         String messageText = chatInput.getText();
 
         try {
-            chat.sendChatMessage(userId, messageText);
+            chat.sendChatMessage(userId, messageText, team_id);
             displayMessages();
             chatInput.clear();
         } catch (DomainException e) {
@@ -100,11 +117,10 @@ public class ChatroomController {
     }
 
     private void displayMessages() {
-        this.messages = chat.getMessages();
+        this.messages = chat.getMessages(team_id);
 
         chatMessages.getChildren().clear();
 
-        // Loop through the messages and display each one
         for (Message message : messages) {
             String username = user.getNameById(message.getUserId());
 
@@ -112,7 +128,7 @@ public class ChatroomController {
             usernameLabel.getStyleClass().add("username-label");
             usernameLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: #333; -fx-font-size: 12px;");
 
-            Label messageLabel = new Label(message.getText());  // Use message.getText() for the actual message text
+            Label messageLabel = new Label(message.getText());
             messageLabel.getStyleClass().add("message-label");
 
             HBox messageBox = new HBox(10);
@@ -126,8 +142,8 @@ public class ChatroomController {
                 messageBox.setStyle("-fx-alignment: CENTER_RIGHT;");
             } else {
                 messageBox.setStyle("-fx-alignment: CENTER_LEFT;");
+                Platform.runLater(() -> scrollPane.setVvalue(1.0));
             }
-
             chatMessages.getChildren().add(messageBox);
         }
     }

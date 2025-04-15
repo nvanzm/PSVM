@@ -10,14 +10,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChatDB {
-    public boolean sendMessage(int userId, String message) {
-        String query = "INSERT INTO bericht (user_id, bericht) VALUES (?, ?)";
+    public boolean sendMessage(int userId, String message, int team_id) {
+        String query = "INSERT INTO bericht (user_id, bericht, team_id) VALUES (?, ?, ?)";
 
         try (Connection connection = ConnectionDB.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             preparedStatement.setInt(1, userId);
             preparedStatement.setString(2, message);
+            preparedStatement.setInt(3, team_id);
 
             int rowsAffected = preparedStatement.executeUpdate();
             return rowsAffected > 0;
@@ -28,23 +29,25 @@ public class ChatDB {
         }
     }
 
-    public List<Message> getMessages() {
-        String query = "SELECT id, bericht, user_id FROM bericht ORDER BY id ASC";  // Ordering by id to retrieve in chronological order
+    public List<Message> getMessages(int team_id) {
+        String query = "SELECT id, bericht, user_id, team_id FROM bericht WHERE team_id = ? ORDER BY id ASC";
         List<Message> messages = new ArrayList<>();
 
         try (Connection connection = ConnectionDB.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query);
-             ResultSet resultSet = preparedStatement.executeQuery()) {
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-            while (resultSet.next()) {
-                Message message = new Message();
-                message.setId(resultSet.getInt("id"));
-                message.setText(resultSet.getString("bericht"));
-                message.setUserId(resultSet.getInt("user_id"));
-//                // Assuming parentId is optional, otherwise adjust logic to handle it
-//                message.setParentId(resultSet.getInt("parent_id"));
+            preparedStatement.setInt(1, team_id);
 
-                messages.add(message);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    Message message = new Message();
+                    message.setId(resultSet.getInt("id"));
+                    message.setText(resultSet.getString("bericht"));
+                    message.setUserId(resultSet.getInt("user_id"));
+                    message.setTeamId(resultSet.getInt("team_id"));
+                    // Assuming parentId is optional, otherwise adjust logic to handle it
+                    messages.add(message);
+                }
             }
 
         } catch (SQLException e) {

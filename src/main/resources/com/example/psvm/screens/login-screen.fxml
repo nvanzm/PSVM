@@ -10,7 +10,7 @@
             -fx-background-radius: 15; -fx-padding: 30; -fx-max-width: 450;">
 
         <!-- Titel -->
-        <Label text="✨ PSVM ✨" style="-fx-font-size: 32; -fx-font-weight: bold; -fx-text-fill: #00d4ff;
+        <Label text="✨ Teamflow ✨" style="-fx-font-size: 32; -fx-font-weight: bold; -fx-text-fill: #00d4ff;
                 -fx-font-family: 'Arial Rounded MT Bold';"/>
 
         <!-- Gebruikersnaam veld -->

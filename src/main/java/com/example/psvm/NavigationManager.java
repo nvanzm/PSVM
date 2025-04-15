@@ -14,7 +14,7 @@ public class NavigationManager {
 
     public static void setStage(Stage stage) {
         primaryStage = stage;
-        primaryStage.setTitle("PSVM");
+        primaryStage.setTitle("Teamflow");
         primaryStage.setMaximized(true);
     }
 

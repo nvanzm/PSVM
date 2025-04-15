@@ -50,4 +50,24 @@ public class LoginDB {
         }
     }
 
+    public Optional<String> getTeamIdById(int team_id) {
+        String query = "SELECT team_id FROM user WHERE id = ?";
+
+        try (Connection connection = ConnectionDB.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setInt(1, team_id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                return Optional.of(resultSet.getString("team_id"));
+            } else {
+                return Optional.empty();
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Fout bij ophalen van gebruiker ID: " + e.getMessage());
+            throw new RuntimeException("Databasefout bij ophalen van gebruiker ID", e);
+        }
+    }
 }
