@@ -48,7 +48,7 @@ public class NavigationController {
     }
 
     public void scrumboard(ActionEvent event) throws IOException {
-        NavigationManager.switchTo("/com/example/psvm/screens/scrumboard-screen.fxml");
+        NavigationManager.switchTo("/com/example/psvm/screens/workitem-screen.fxml");
     }
 
     public void team (ActionEvent event) throws IOException {

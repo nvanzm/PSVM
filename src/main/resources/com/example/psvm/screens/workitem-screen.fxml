@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<AnchorPane prefWidth="1920.0" prefHeight="1080.0" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.psvm.controllers.WorkitemController" stylesheets="@../styling/styles.css">
+    <HBox fx:id="mainHBox" prefHeight="1080.0" prefWidth="1920.0">
+        <fx:include source="nav-screen.fxml"/>
+
+        <VBox fx:id="mainContent" style="-fx-padding: 30px;" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS" spacing="20.0">
+            <VBox spacing="10">
+                <Label text="Welk workitem wil je aanmaken?"
+                       style="-fx-font-size: 14px; -fx-font-weight: bold;" />
+                <ComboBox fx:id="typeSelectie"
+
+                          style="-fx-pref-width: 200px; -fx-background-color: white;
+                                     -fx-border-color: #2c3e50; -fx-border-radius: 5px;
+                                     -fx-padding: 5px; -fx-font-size: 14px;
+                                     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 5, 0, 0, 2);">
+                </ComboBox>
+                <Label fx:id="koppel" text="Aan welk workitem wil je koppelen?"
+                       style="-fx-font-size: 14px; -fx-font-weight: bold;" />
+                <ComboBox fx:id="koppelSelectie"
+                          style="-fx-pref-width: 200px; -fx-background-color: white;
+                                     -fx-border-color: #2c3e50; -fx-border-radius: 5px;
+                                     -fx-padding: 5px; -fx-font-size: 14px;
+                                     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 5, 0, 0, 2);">
+                </ComboBox>
+            </VBox>
+                <!-- NIEUW WORKITEM -->
+                <VBox spacing="5">
+                    <Label text="Geef een naam en een beschrijving"
+                           style="-fx-font-size: 14px; -fx-font-weight: bold;" />
+                    <HBox spacing="5">
+                        <TextField fx:id="workitemNameField"
+                                   promptText="naam"
+                                   style="-fx-pref-width: 200px; -fx-font-size: 14px;
+                                          -fx-padding: 5px; -fx-border-color: #ccc;
+                                          -fx-border-radius: 5px;" />
+                        <TextField fx:id="workitemBeschrijving"
+                                   promptText="beschrijving"
+                                   style="-fx-pref-width: 200px; -fx-font-size: 14px;
+                                          -fx-padding: 5px; -fx-border-color: #ccc;
+                                          -fx-border-radius: 5px;" />
+
+                        <Button fx:id="WorkItemPlusButton" text="+"
+                                style="-fx-background-color: #2ecc71; -fx-text-fill: white;
+                                       -fx-font-size: 16px; -fx-font-weight: bold;
+                                       -fx-background-radius: 5px; -fx-pref-width: 35px;
+                                       -fx-pref-height: 35px; -fx-cursor: hand;" />
+                    </HBox>
+                </VBox>
+
+            </VBox>
+    </HBox>
+</AnchorPane>

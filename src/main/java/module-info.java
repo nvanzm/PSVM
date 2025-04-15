@@ -2,8 +2,10 @@ module com.example.psvm {
     requires javafx.controls;
     requires javafx.fxml;
     requires com.zaxxer.hikari;
-    requires java.sql;
+    requires java.desktop;
     requires java.prefs;
+    requires ch.qos.logback.core;
+    requires java.sql;
 
 
     opens com.example.psvm to javafx.fxml;
