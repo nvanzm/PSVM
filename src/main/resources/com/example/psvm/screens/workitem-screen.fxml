@@ -9,7 +9,7 @@
 
         <VBox fx:id="mainContent" style="-fx-padding: 30px;" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS" spacing="20.0">
             <VBox spacing="10">
-                <Label text="Welk workitem wil je aanmaken?"
+                <Label text="Kies een workitem om aan te maken:"
                        style="-fx-font-size: 14px; -fx-font-weight: bold;" />
                 <ComboBox fx:id="typeSelectie"
 
@@ -18,7 +18,7 @@
                                      -fx-padding: 5px; -fx-font-size: 14px;
                                      -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 5, 0, 0, 2);">
                 </ComboBox>
-                <Label fx:id="koppel" text="Aan welk workitem wil je koppelen?"
+                <Label fx:id="koppel"
                        style="-fx-font-size: 14px; -fx-font-weight: bold;" />
                 <ComboBox fx:id="koppelSelectie"
                           style="-fx-pref-width: 200px; -fx-background-color: white;
@@ -49,8 +49,11 @@
                                        -fx-background-radius: 5px; -fx-pref-width: 35px;
                                        -fx-pref-height: 35px; -fx-cursor: hand;" />
                     </HBox>
+                    <HBox spacing="5">
+                        <Label fx:id="toegevoegd"
+                               style="-fx-font-size: 14px; -fx-font-weight: bold;" />
+                    </HBox>
                 </VBox>
-
             </VBox>
     </HBox>
 </AnchorPane>

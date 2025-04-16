@@ -13,7 +13,6 @@ import static com.example.psvm.Startup.getUser;
 public class WorkitemController {
     @FXML
     private Button WorkItemPlusButton;
-
     @FXML
     private TextField workitemNameField;
     @FXML
@@ -24,6 +23,8 @@ public class WorkitemController {
     private ComboBox koppelSelectie;
     @FXML
     private Label koppel;
+    @FXML
+    private Label toegevoegd;
 
 
     private final ResolutionController resolutionManager = ResolutionController.getInstance();
@@ -44,9 +45,20 @@ public class WorkitemController {
         this.taak = new Taak();
         this.workItem = new WorkItem();
         typeSelectie.getItems().addAll("epic", "user_story", "taak");
-        typeSelectie.setOnAction(event -> {setComboBox();});
+        typeSelectie.setOnAction(event -> {setComboBox(); setLabel();});
 
     }
+
+    private void setLabel(){
+        String keuze = typeSelectie.getValue().toString();
+        switch (keuze){
+            case "epic"-> koppel.setText("Koppelen aan workitem niet mogelijk");
+            case "user_story" -> koppel.setText("Kies een epic om aan te koppelen:");
+            case "taak"-> koppel.setText("Kies een userstory om aan te koppelen:");
+
+        }
+    }
+
     private void setComboBox(){
         String keuze = typeSelectie.getValue().toString();
         switch (keuze) {
@@ -72,15 +84,19 @@ public class WorkitemController {
 
         if (WInaam.isEmpty() || WBeschrijving.isEmpty() || WType.isEmpty()) {
             System.out.println("Lege velden.");
+            toegevoegd.setText("Workitem " + WInaam+" is niet toegevoegd, er zijn lege velden");
         } if (WType.equals("epic")) {
             boolean workitemCreated = epic.createNewWorkItem(WInaam, WBeschrijving, user.getTeamIdById(user.getId()));
             System.out.println(workitemCreated);
+            toegevoegd.setText("Epic " + WInaam+" is toegevoegd");
         } if (WType.equals("user_story")){
             boolean workitemCreated = userStory.createNewWorkItem(WInaam, WBeschrijving, workItem.getWorkItemIdByName(WKoppel, "epic"), user.getTeamIdById(user.getId()));
             System.out.println(workitemCreated);
+            toegevoegd.setText("Userstory " + WInaam+" is toegevoegd");
         } if (WType.equals("taak")) {
             boolean workitemCreated = taak.createNewWorkItem(WInaam, WBeschrijving, workItem.getWorkItemIdByName(WKoppel, "user_story"), user.getTeamIdById(user.getId()));
             System.out.println(workitemCreated);
+            toegevoegd.setText("Taak " + WInaam+" is toegevoegd");
         }
     }
 }
