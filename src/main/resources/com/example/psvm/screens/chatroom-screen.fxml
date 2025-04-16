@@ -29,6 +29,7 @@
                             <items>
                                 <FXCollections fx:factory="observableArrayList">
                                     <String fx:value="Algemene chat"/>
+                                    <String fx:value="Scrumboard"/>
                                 </FXCollections>
                             </items>
                         </ComboBox>

@@ -1,27 +1,37 @@
 package com.example.psvm.controllers;
 
-import com.example.psvm.model.Chat;
-import com.example.psvm.model.Message;
-import com.example.psvm.model.Team;
-import com.example.psvm.model.User;
+import com.example.psvm.model.*;
 import com.example.psvm.util.errors.DomainException;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.awt.*;
+import java.io.IOException;
 import java.util.List;
 
 import static com.example.psvm.Startup.getChat;
 import static com.example.psvm.Startup.getUser;
 
 public class ChatroomController {
+
     @FXML
     private VBox chatMessages;
     @FXML
@@ -38,6 +48,8 @@ public class ChatroomController {
     private ScrollPane scrollPane;
     @FXML
     private Label teamChat;
+    @FXML
+    private ComboBox<String> teamSelectie;
 
     private final ResolutionController resolutionManager = ResolutionController.getInstance();
 
@@ -48,7 +60,7 @@ public class ChatroomController {
     private int userId;
     private int team_id;
     private String team_name;
-    private int currentTeam;
+    private SelectedItem selectedItem;
 
     @FXML
     public void initialize() {
@@ -57,10 +69,8 @@ public class ChatroomController {
         this.userId = user.getId();
 
         this.team = new Team();
-
         this.team_id = user.getTeamIdById(userId);
         this.team_name = team.getTeamNameById(team_id);
-
 
         teamChat.setText("\uD83D\uDCAC Chat - " + team_name);
 
@@ -73,18 +83,44 @@ public class ChatroomController {
         scrollPane.setVvalue(1.0);
         displayMessages();
 
+        teamSelectie.setOnAction(e -> {
+            String selected = teamSelectie.getValue();
+            if ("Scrumboard".equals(selected)) {
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/psvm/screens/scrumboard-modal.fxml"));
+                    Parent root = loader.load();
+
+                    ScrumboardController scrumboardController = loader.getController();
+                    scrumboardController.setChatroomController(this);
+
+                    Stage stage = new Stage();
+                    stage.setScene(new Scene(root));
+                    stage.initModality(Modality.APPLICATION_MODAL);
+                    stage.showAndWait();
+
+                    teamSelectie.setValue("Algemene chat");
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+
         mainHBox.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
-            if(key.getCode()== KeyCode.ENTER) {
+            if (key.getCode() == KeyCode.ENTER) {
                 sendMessage();
             }
         });
 
-        //chatbox refresh
+        // chatbox refresh
         Timeline refreshTimeline = new Timeline(
                 new KeyFrame(Duration.seconds(3), event -> displayMessages())
         );
         refreshTimeline.setCycleCount(Timeline.INDEFINITE);
         refreshTimeline.play();
+    }
+
+    public void setSelectedItem(SelectedItem selectedItem) {
+        this.selectedItem = selectedItem;
     }
 
     private void applyResolution(String resolution) {
@@ -103,9 +139,17 @@ public class ChatroomController {
 
     private void sendMessage() {
         String messageText = chatInput.getText();
+        Integer itemId = null;
+        String itemType = null;
+
+        if (selectedItem != null) {
+            itemId = selectedItem.getId();
+            itemType = selectedItem.getType();
+            System.out.println("→ Geselecteerd item: ID=" + itemId + ", type=" + itemType);
+        }
 
         try {
-            chat.sendChatMessage(userId, messageText, team_id);
+            chat.sendChatMessage(userId, messageText, team_id, itemId, itemType);
             displayMessages();
             chatInput.clear();
         } catch (DomainException e) {
@@ -113,6 +157,7 @@ public class ChatroomController {
         } catch (Exception e) {
             showErrorMessage("Er is een fout opgetreden.");
         }
+
         Platform.runLater(() -> scrollPane.setVvalue(1.0));
     }
 
@@ -131,13 +176,39 @@ public class ChatroomController {
             Label messageLabel = new Label(message.getText());
             messageLabel.getStyleClass().add("message-label");
 
-            HBox messageBox = new HBox(10);
+            HBox typeIndicator = new HBox();
+            Circle typeCircle = new Circle(10);
+            Label typeLabel = new Label();
 
+            switch (message.getItemType()) {
+                case "epic":
+                    typeCircle.getStyleClass().add("epic-circle");
+                    typeLabel.setText("E");
+                    break;
+                case "user_story":
+                    typeCircle.getStyleClass().add("us-circle");
+                    typeLabel.setText("US");
+                    break;
+                case "taak":
+                    typeCircle.getStyleClass().add("taak-circle");
+                    typeLabel.setText("T");
+                    break;
+                default:
+                    typeCircle.getStyleClass().add("algemeen-circle");
+                    typeLabel.setText("A");
+            }
+
+            typeIndicator.getChildren().addAll(typeCircle, typeLabel);
+            typeIndicator.setSpacing(5);
+
+            HBox messageBox = new HBox(10);
             VBox messageContent = new VBox(3);
             messageContent.getChildren().add(usernameLabel);
             messageContent.getChildren().add(messageLabel);
 
+            messageBox.getChildren().add(typeIndicator);
             messageBox.getChildren().add(messageContent);
+
             if (message.getUserId() == user.getId()) {
                 messageBox.setStyle("-fx-alignment: CENTER_RIGHT;");
             } else {

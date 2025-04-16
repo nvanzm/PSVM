@@ -6,8 +6,10 @@ public class Message {
     private int userId;
     private int team_id;
     private int parentId;
+    private Integer itemId;
+    private String itemType;
 
-    // Getters and setters
+    // Getters en setters
     public int getId() {
         return id;
     }
@@ -46,5 +48,21 @@ public class Message {
 
     public void setTeamId(int team_id) {
         this.team_id = team_id;
+    }
+
+    public Integer getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(Integer itemId) {
+        this.itemId = itemId;
+    }
+
+    public String getItemType() {
+        return itemType;
+    }
+
+    public void setItemType(String itemType) {
+        this.itemType = itemType;
     }
 }

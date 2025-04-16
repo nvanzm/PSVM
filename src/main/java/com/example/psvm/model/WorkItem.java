@@ -24,7 +24,9 @@ public class WorkItem {
     public List<String> getAllUserstories () {
         return workItemDB.getAllUserstories();
     }
-
+    public List<String> getAllTaken () {
+        return workItemDB.getAllTaken();
+    }
 
     public Integer getWorkItemIdByName(String naam, String type) {
         Optional<Integer> WorkitemIDOPT = workItemDB.getWorkItemIdByName(naam, type);

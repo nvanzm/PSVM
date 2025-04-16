@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="10" alignment="TOP_CENTER" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.psvm.controllers.ScrumboardController" style="-fx-padding: 20;">
+    <Label text="📋 Scrumboard" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+
+    <TitledPane text="Epics" expanded="true">
+        <VBox fx:id="epicsBox" spacing="5">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+        </VBox>
+    </TitledPane>
+
+    <TitledPane text="User Stories" expanded="true">
+        <VBox fx:id="userStoriesBox" spacing="5">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+        </VBox>
+    </TitledPane>
+
+    <TitledPane text="Taken" expanded="true">
+        <VBox fx:id="takenBox" spacing="5">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+        </VBox>
+    </TitledPane>
+</VBox>

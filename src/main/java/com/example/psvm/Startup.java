@@ -1,8 +1,6 @@
 package com.example.psvm;
 
 import com.example.psvm.database.ChatDB;
-import com.example.psvm.database.LoginDB;
-import com.example.psvm.database.TeamDB;
 import com.example.psvm.model.Chat;
 import com.example.psvm.model.Team;
 import com.example.psvm.model.User;

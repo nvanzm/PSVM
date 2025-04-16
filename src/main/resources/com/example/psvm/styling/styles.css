@@ -82,6 +82,33 @@
     -fx-border-radius: 50%;
 }
 
+.epic-circle {
+    -fx-fill: #9d2c2c; /* default red color, can be updated dynamically */
+    -fx-radius: 10px;
+    -fx-stroke-width: 2px;
+    -fx-stroke: #ffffff; /* white stroke for better contrast */
+}
+
+.us-circle {
+    -fx-fill: #3f44d7; /* default red color, can be updated dynamically */
+    -fx-radius: 10px;
+    -fx-stroke-width: 2px;
+    -fx-stroke: #ffffff; /* white stroke for better contrast */
+}
+
+.taak-circle {
+    -fx-fill: #146013; /* default red color, can be updated dynamically */
+    -fx-radius: 10px;
+    -fx-stroke-width: 2px;
+    -fx-stroke: #ffffff; /* white stroke for better contrast */
+}
+
+.algemeen-circle {
+    -fx-fill: #484848; /* default red color, can be updated dynamically */
+    -fx-radius: 10px;
+    -fx-stroke-width: 2px;
+    -fx-stroke: #ffffff; /* white stroke for better contrast */
+}
 
 
 

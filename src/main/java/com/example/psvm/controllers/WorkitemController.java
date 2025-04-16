@@ -55,7 +55,6 @@ public class WorkitemController {
             case "epic"-> koppel.setText("Koppelen aan workitem niet mogelijk");
             case "user_story" -> koppel.setText("Kies een epic om aan te koppelen:");
             case "taak"-> koppel.setText("Kies een userstory om aan te koppelen:");
-
         }
     }
 
@@ -89,14 +88,20 @@ public class WorkitemController {
             boolean workitemCreated = epic.createNewWorkItem(WInaam, WBeschrijving, user.getTeamIdById(user.getId()));
             System.out.println(workitemCreated);
             toegevoegd.setText("Epic " + WInaam+" is toegevoegd");
+            workitemNameField.clear();
+            workitemBeschrijving.clear();
         } if (WType.equals("user_story")){
             boolean workitemCreated = userStory.createNewWorkItem(WInaam, WBeschrijving, workItem.getWorkItemIdByName(WKoppel, "epic"), user.getTeamIdById(user.getId()));
             System.out.println(workitemCreated);
             toegevoegd.setText("Userstory " + WInaam+" is toegevoegd");
+            workitemNameField.clear();
+            workitemBeschrijving.clear();
         } if (WType.equals("taak")) {
             boolean workitemCreated = taak.createNewWorkItem(WInaam, WBeschrijving, workItem.getWorkItemIdByName(WKoppel, "user_story"), user.getTeamIdById(user.getId()));
             System.out.println(workitemCreated);
             toegevoegd.setText("Taak " + WInaam+" is toegevoegd");
+            workitemNameField.clear();
+            workitemBeschrijving.clear();
         }
     }
 }

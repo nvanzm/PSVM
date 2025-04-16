@@ -45,6 +45,24 @@ public class WorkItemDB {
         return userstories;
     }
 
+    public List<String> getAllTaken() {
+        List<String> taken = new ArrayList<>();
+        String query = "SELECT naam FROM taak";
+
+        try (Connection connection = ConnectionDB.getConnection();
+             Statement stmt = connection.createStatement();
+             ResultSet resultSet = stmt.executeQuery(query)) {
+
+            while (resultSet.next()) {
+                taken.add(resultSet.getString("naam"));
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Fout bij ophalen teams: " + e.getMessage());
+        }
+
+        return taken;
+    }
 
     public Optional<Integer> addNewEpic(String Wnaam, String Wbeschrijving, int Wteam_id) {
                 String query = "INSERT INTO epic (naam, beschrijving, team_id) VALUES (?,?,?)";
