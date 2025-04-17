@@ -154,6 +154,7 @@ public class WorkItemDB {
             throw new RuntimeException("Databasefout bij toevoegen Workitem: ", e);
         }
     }
+
     public Optional<Integer> getWorkItemIdByName(String name, String type) {
         String query = "SELECT id FROM "+ type +" WHERE naam = ?";
 

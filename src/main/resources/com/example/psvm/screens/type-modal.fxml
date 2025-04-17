@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.psvm.controllers.TypeController"
+      spacing="15" alignment="CENTER" style="-fx-padding: 20;">
+
+    <Label text="Type Informatie" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+
+    <Label fx:id="typeInfoLabel" wrapText="true"
+           style="-fx-font-size: 14px; -fx-text-fill: #333;" />
+
+    <Button text="Sluiten" onAction="#handleClose" />
+</VBox>

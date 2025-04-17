@@ -22,7 +22,7 @@
                         <TextField fx:id="chatInput" HBox.hgrow="ALWAYS" promptText="Scheld Casper uit..."/>
                             <Label fx:id="errorLabel" style="-fx-text-fill: red;"/>
                         </VBox>
-                        <ComboBox fx:id="teamSelectie" layoutY="10.0"
+                        <ComboBox fx:id="chatSelectie" layoutY="10.0"
                                   style="-fx-pref-width: 200px; -fx-background-color: white;
                              -fx-border-color: #2c3e50; -fx-border-radius: 5px;
                              -fx-padding: 5px; -fx-font-size: 13px;" promptText="Algemene chat">

@@ -58,11 +58,25 @@ public class Message {
         this.itemId = itemId;
     }
 
-    public String getItemType() {
-        return itemType;
-    }
-
     public void setItemType(String itemType) {
         this.itemType = itemType;
+    }
+
+    public String getTypeLabel() {
+        switch (itemType) {
+            case "epic": return "E";
+            case "user_story": return "US";
+            case "taak": return "T";
+            default: return "A";
+        }
+    }
+
+    public String getStyleClassForType() {
+        switch (itemType) {
+            case "epic": return "epic-circle";
+            case "user_story": return "us-circle";
+            case "taak": return "taak-circle";
+            default: return "algemeen-circle";
+        }
     }
 }
