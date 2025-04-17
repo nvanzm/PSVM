@@ -83,6 +83,7 @@
 }
 
 .epic-circle {
+    -fx-cursor: hand;
     -fx-fill: #9d2c2c; /* default red color, can be updated dynamically */
     -fx-radius: 10px;
     -fx-stroke-width: 2px;
@@ -90,6 +91,7 @@
 }
 
 .us-circle {
+    -fx-cursor: hand;
     -fx-fill: #3f44d7; /* default red color, can be updated dynamically */
     -fx-radius: 10px;
     -fx-stroke-width: 2px;
@@ -97,6 +99,7 @@
 }
 
 .taak-circle {
+    -fx-cursor: hand;
     -fx-fill: #146013; /* default red color, can be updated dynamically */
     -fx-radius: 10px;
     -fx-stroke-width: 2px;
@@ -104,6 +107,7 @@
 }
 
 .algemeen-circle {
+    -fx-cursor: hand;
     -fx-fill: #484848; /* default red color, can be updated dynamically */
     -fx-radius: 10px;
     -fx-stroke-width: 2px;

@@ -23,7 +23,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.awt.*;
 import java.io.IOException;
 import java.util.List;
 
@@ -49,7 +48,7 @@ public class ChatroomController {
     @FXML
     private Label teamChat;
     @FXML
-    private ComboBox<String> teamSelectie;
+    private ComboBox<String> chatSelectie;
 
     private final ResolutionController resolutionManager = ResolutionController.getInstance();
 
@@ -83,8 +82,8 @@ public class ChatroomController {
         scrollPane.setVvalue(1.0);
         displayMessages();
 
-        teamSelectie.setOnAction(e -> {
-            String selected = teamSelectie.getValue();
+        chatSelectie.setOnAction(e -> {
+            String selected = chatSelectie.getValue();
             if ("Scrumboard".equals(selected)) {
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/psvm/screens/scrumboard-modal.fxml"));
@@ -98,7 +97,7 @@ public class ChatroomController {
                     stage.initModality(Modality.APPLICATION_MODAL);
                     stage.showAndWait();
 
-                    teamSelectie.setValue("Algemene chat");
+                    chatSelectie.setValue("Algemene chat");
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
@@ -163,7 +162,6 @@ public class ChatroomController {
 
     private void displayMessages() {
         this.messages = chat.getMessages(team_id);
-
         chatMessages.getChildren().clear();
 
         for (Message message : messages) {
@@ -178,25 +176,26 @@ public class ChatroomController {
 
             HBox typeIndicator = new HBox();
             Circle typeCircle = new Circle(10);
-            Label typeLabel = new Label();
+            Label typeLabel = new Label(message.getTypeLabel());
 
-            switch (message.getItemType()) {
-                case "epic":
-                    typeCircle.getStyleClass().add("epic-circle");
-                    typeLabel.setText("E");
-                    break;
-                case "user_story":
-                    typeCircle.getStyleClass().add("us-circle");
-                    typeLabel.setText("US");
-                    break;
-                case "taak":
-                    typeCircle.getStyleClass().add("taak-circle");
-                    typeLabel.setText("T");
-                    break;
-                default:
-                    typeCircle.getStyleClass().add("algemeen-circle");
-                    typeLabel.setText("A");
-            }
+            typeCircle.getStyleClass().add(message.getStyleClassForType());
+
+            typeCircle.setOnMouseClicked(event -> {
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/psvm/screens/type-modal.fxml"));
+                    Parent root = loader.load();
+
+                    TypeController controller = loader.getController();
+                    controller.setMessage(message);
+
+                    Stage modalStage = new Stage();
+                    modalStage.initModality(Modality.APPLICATION_MODAL);
+                    modalStage.setScene(new Scene(root));
+                    modalStage.showAndWait();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
 
             typeIndicator.getChildren().addAll(typeCircle, typeLabel);
             typeIndicator.setSpacing(5);
