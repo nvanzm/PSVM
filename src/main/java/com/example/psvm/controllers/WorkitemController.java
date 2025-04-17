@@ -32,6 +32,7 @@ public class WorkitemController {
     private UserStory userStory;
     private Epic epic;
     private Team team;
+    private int team_id;
     private User user;
     private WorkItem workItem;
 
@@ -44,9 +45,10 @@ public class WorkitemController {
         this.userStory = new UserStory();
         this.taak = new Taak();
         this.workItem = new WorkItem();
+        this.team_id = user.getTeamIdById(user.getId());
         typeSelectie.getItems().addAll("epic", "user_story", "taak");
         typeSelectie.setOnAction(event -> {setComboBox(); setLabel();});
-
+        System.out.println(team_id);
     }
 
     private void setLabel(){
@@ -63,11 +65,11 @@ public class WorkitemController {
         switch (keuze) {
             case "user_story":
                 koppelSelectie.getItems().clear();
-                koppelSelectie.getItems().addAll(workItem.getAllEpics());
+                koppelSelectie.getItems().addAll(workItem.getAllEpics(team_id));
                 break;
             case "taak":
                 koppelSelectie.getItems().clear();
-                koppelSelectie.getItems().addAll(workItem.getAllUserstories());
+                koppelSelectie.getItems().addAll(workItem.getAllUserstories(team_id));
                 break;
             default:
                 koppelSelectie.getItems().clear();
@@ -85,19 +87,19 @@ public class WorkitemController {
             System.out.println("Lege velden.");
             toegevoegd.setText("Workitem " + WInaam+" is niet toegevoegd, er zijn lege velden");
         } if (WType.equals("epic")) {
-            boolean workitemCreated = epic.createNewWorkItem(WInaam, WBeschrijving, user.getTeamIdById(user.getId()));
+            boolean workitemCreated = epic.createNewWorkItem(WInaam, WBeschrijving, team_id);
             System.out.println(workitemCreated);
             toegevoegd.setText("Epic " + WInaam+" is toegevoegd");
             workitemNameField.clear();
             workitemBeschrijving.clear();
         } if (WType.equals("user_story")){
-            boolean workitemCreated = userStory.createNewWorkItem(WInaam, WBeschrijving, workItem.getWorkItemIdByName(WKoppel, "epic"), user.getTeamIdById(user.getId()));
+            boolean workitemCreated = userStory.createNewWorkItem(WInaam, WBeschrijving, workItem.getWorkItemIdByName(WKoppel, "epic"), team_id);
             System.out.println(workitemCreated);
             toegevoegd.setText("Userstory " + WInaam+" is toegevoegd");
             workitemNameField.clear();
             workitemBeschrijving.clear();
         } if (WType.equals("taak")) {
-            boolean workitemCreated = taak.createNewWorkItem(WInaam, WBeschrijving, workItem.getWorkItemIdByName(WKoppel, "user_story"), user.getTeamIdById(user.getId()));
+            boolean workitemCreated = taak.createNewWorkItem(WInaam, WBeschrijving, workItem.getWorkItemIdByName(WKoppel, "user_story"), team_id);
             System.out.println(workitemCreated);
             toegevoegd.setText("Taak " + WInaam+" is toegevoegd");
             workitemNameField.clear();

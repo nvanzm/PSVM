@@ -7,58 +7,67 @@ import java.util.Optional;
 
 public class WorkItemDB {
 
-    public List<String> getAllEpics() {
+    public List<String> getAllEpics(int teamID) {
         List<String> epics = new ArrayList<>();
-        String query = "SELECT naam FROM epic";
+        String query = "SELECT naam FROM epic WHERE team_id=?";
 
         try (Connection connection = ConnectionDB.getConnection();
-             Statement stmt = connection.createStatement();
-             ResultSet resultSet = stmt.executeQuery(query)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+
+
+            preparedStatement.setInt(1, teamID);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
 
             while (resultSet.next()) {
                 epics.add(resultSet.getString("naam"));
             }
 
         } catch (SQLException e) {
-            System.err.println("Fout bij ophalen teams: " + e.getMessage());
+            System.err.println("Fout bij ophalen epics: " + e.getMessage());
         }
 
         return epics;
     }
 
-    public List<String> getAllUserstories() {
+    public List<String> getAllUserstories(int teamID) {
         List<String> userstories = new ArrayList<>();
-        String query = "SELECT naam FROM user_story";
+        String query = "SELECT naam FROM user_story WHERE team_id = ?";
 
         try (Connection connection = ConnectionDB.getConnection();
-             Statement stmt = connection.createStatement();
-             ResultSet resultSet = stmt.executeQuery(query)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+
+
+            preparedStatement.setInt(1, teamID);
+            ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
                 userstories.add(resultSet.getString("naam"));
             }
 
         } catch (SQLException e) {
-            System.err.println("Fout bij ophalen teams: " + e.getMessage());
+            System.err.println("Fout bij ophalen userstories: " + e.getMessage());
         }
 
         return userstories;
     }
 
-    public List<String> getAllTaken() {
+    public List<String> getAllTaken(int teamID) {
         List<String> taken = new ArrayList<>();
-        String query = "SELECT naam FROM taak";
+        String query = "SELECT naam FROM taak WHERE team_id=?";
 
         try (Connection connection = ConnectionDB.getConnection();
-             Statement stmt = connection.createStatement();
-             ResultSet resultSet = stmt.executeQuery(query)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+
+            preparedStatement.setInt(1, teamID);
+            ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
                 taken.add(resultSet.getString("naam"));
             }
 
         } catch (SQLException e) {
-            System.err.println("Fout bij ophalen teams: " + e.getMessage());
+            System.err.println("Fout bij ophalen taak: " + e.getMessage());
         }
 
         return taken;

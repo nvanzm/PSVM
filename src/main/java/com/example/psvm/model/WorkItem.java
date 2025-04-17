@@ -18,14 +18,14 @@ public class WorkItem {
         workItemDB = new WorkItemDB();
     }
 
-    public List<String> getAllEpics () {
-        return workItemDB.getAllEpics();
+    public List<String> getAllEpics (int team_id) {
+        return workItemDB.getAllEpics(team_id);
     }
-    public List<String> getAllUserstories () {
-        return workItemDB.getAllUserstories();
+    public List<String> getAllUserstories (int team_id) {
+        return workItemDB.getAllUserstories(team_id);
     }
-    public List<String> getAllTaken () {
-        return workItemDB.getAllTaken();
+    public List<String> getAllTaken (int team_id) {
+        return workItemDB.getAllTaken(team_id);
     }
 
     public Integer getWorkItemIdByName(String naam, String type) {
