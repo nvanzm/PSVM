@@ -3,15 +3,14 @@ package com.example.psvm.controllers;
 import com.example.psvm.model.SelectedItem;
 import com.example.psvm.model.Team;
 import com.example.psvm.model.User;
-import com.example.psvm.model.WorkItem;
+import com.example.psvm.model.ScrumBoard;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import static com.example.psvm.Startup.getTeam;
-import static com.example.psvm.Startup.getUser;
+import static com.example.psvm.Startup.*;
 
 public class ScrumboardController {
 
@@ -24,7 +23,7 @@ public class ScrumboardController {
     @FXML
     private VBox takenBox;
 
-    private final WorkItem workItem = new WorkItem();
+    private final ScrumBoard workItem = getScrumBoard();
     private Team team;
     private int team_id;
     private User user;
@@ -46,22 +45,22 @@ public class ScrumboardController {
     }
 
     private void loadEpics() {
-        workItem.getAllEpics(team_id).forEach(epicNaam -> {
-            Label label = createSelectableLabel(epicNaam, "epic");
+        workItem.getAllEpics(team_id).forEach(epic -> {
+            Label label = createSelectableLabel(epic.getNaam(), "epic");
             epicsBox.getChildren().add(label);
         });
     }
 
     private void loadUserStories() {
-        workItem.getAllUserstories(team_id).forEach(storyNaam -> {
-            Label label = createSelectableLabel(storyNaam, "user_story");
+        workItem.getAllUserstories(team_id).forEach(userStory -> {
+            Label label = createSelectableLabel(userStory.getNaam(), "user_story");
             userStoriesBox.getChildren().add(label);
         });
     }
 
     private void loadTaken() {
-        workItem.getAllTaken(team_id).forEach(taakNaam -> {
-            Label label = createSelectableLabel(taakNaam, "taak");
+        workItem.getAllTaken(team_id).forEach(taak -> {
+            Label label = createSelectableLabel(taak.getNaam(), "taak");
             takenBox.getChildren().add(label);
         });
     }

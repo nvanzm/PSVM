@@ -75,7 +75,7 @@ public class LoginController {
 
         if (user.login(username)) {
             showSuccess("Succesvol ingelogd!");
-            NavigationManager.switchTo("/com/example/psvm/screens/chatroom-screen.fxml");
+            NavigationManager.switchTo("/com/example/psvm/screens/workitem-screen.fxml");
         } else {
             showError("Fout bij inloggen gebruiker.");
         }

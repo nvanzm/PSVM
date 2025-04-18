@@ -1,5 +1,6 @@
 package com.example.psvm.database;
 
+import com.example.psvm.model.Epic;
 import com.example.psvm.model.Message;
 
 import java.sql.Connection;
@@ -64,10 +65,23 @@ public class ChatDB {
                     message.setText(resultSet.getString("bericht"));
                     message.setUserId(resultSet.getInt("user_id"));
                     message.setTeamId(resultSet.getInt("team_id"));
-                    message.setItemId(resultSet.getObject("epic_id") != null ? resultSet.getInt("epic_id") :
-                            (resultSet.getObject("user_story_id") != null ? resultSet.getInt("user_story_id") :
-                                    resultSet.getInt("taak_id")));
-                    message.setItemType(determineItemType(resultSet));
+
+                    // Set itemId and itemType
+                    if (resultSet.getObject("epic_id") != null) {
+                        int epicId = resultSet.getInt("epic_id");
+                        message.setItemId(epicId);
+                        message.setItemType("epic");
+                    } else if (resultSet.getObject("user_story_id") != null) {
+                        int userStoryId = resultSet.getInt("user_story_id");
+                        message.setItemId(userStoryId);
+                        message.setItemType("user_story");
+                    } else if (resultSet.getObject("taak_id") != null) {
+                        int taakId = resultSet.getInt("taak_id");
+                        message.setItemId(taakId);
+                        message.setItemType("taak");
+                    }
+
+                    // Add the message to the list
                     messages.add(message);
                 }
             }
@@ -76,8 +90,11 @@ public class ChatDB {
             throw new RuntimeException("Databasefout bij ophalen berichten", e);
         }
 
+
         return messages;
     }
+
+
 
     private String determineItemType(ResultSet resultSet) throws SQLException {
         if (resultSet.getObject("epic_id") != null) {

@@ -1,5 +1,9 @@
 package com.example.psvm.database;
 
+import com.example.psvm.model.Epic;
+import com.example.psvm.model.Taak;
+import com.example.psvm.model.UserStory;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,20 +11,23 @@ import java.util.Optional;
 
 public class WorkItemDB {
 
-    public List<String> getAllEpics(int teamID) {
-        List<String> epics = new ArrayList<>();
-        String query = "SELECT naam FROM epic WHERE team_id=?";
+    public List<Epic> getAllEpics(int teamID) {
+        List<Epic> epics = new ArrayList<>();
+        String query = "SELECT id, naam, beschrijving, team_id FROM epic WHERE team_id=?";
 
         try (Connection connection = ConnectionDB.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
-
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             preparedStatement.setInt(1, teamID);
             ResultSet resultSet = preparedStatement.executeQuery();
 
-
             while (resultSet.next()) {
-                epics.add(resultSet.getString("naam"));
+                Epic epic = new Epic(
+                        resultSet.getInt("id"),
+                        resultSet.getString("naam"),
+                        resultSet.getString("beschrijving")
+                );
+                epics.add(epic);
             }
 
         } catch (SQLException e) {
@@ -30,19 +37,25 @@ public class WorkItemDB {
         return epics;
     }
 
-    public List<String> getAllUserstories(int teamID) {
-        List<String> userstories = new ArrayList<>();
-        String query = "SELECT naam FROM user_story WHERE team_id = ?";
+
+    public List<UserStory> getAllUserstories(int teamID) {
+        List<UserStory> userstories = new ArrayList<>();
+        String query = "SELECT id, naam, beschrijving, epic_id, team_id FROM user_story WHERE team_id = ?";
 
         try (Connection connection = ConnectionDB.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
-
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             preparedStatement.setInt(1, teamID);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                userstories.add(resultSet.getString("naam"));
+                UserStory userStory = new UserStory(
+                        resultSet.getInt("id"),
+                        resultSet.getString("naam"),
+                        resultSet.getString("beschrijving"),
+                        resultSet.getInt("epic_id")
+                );
+                userstories.add(userStory);
             }
 
         } catch (SQLException e) {
@@ -52,22 +65,29 @@ public class WorkItemDB {
         return userstories;
     }
 
-    public List<String> getAllTaken(int teamID) {
-        List<String> taken = new ArrayList<>();
-        String query = "SELECT naam FROM taak WHERE team_id=?";
+
+    public List<Taak> getAllTaken(int teamID) {
+        List<Taak> taken = new ArrayList<>();
+        String query = "SELECT id, naam, beschrijving, user_story_id FROM taak WHERE team_id=?"; // Assuming 'id' is a column too
 
         try (Connection connection = ConnectionDB.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             preparedStatement.setInt(1, teamID);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                taken.add(resultSet.getString("naam"));
+                Taak taak = new Taak(
+                        resultSet.getInt("id"),
+                        resultSet.getString("naam"),
+                        resultSet.getString("beschrijving"),
+                        resultSet.getInt("user_story_id")
+                );
+                taken.add(taak);
             }
 
         } catch (SQLException e) {
-            System.err.println("Fout bij ophalen taak: " + e.getMessage());
+            System.err.println("Fout bij ophalen taken: " + e.getMessage());
         }
 
         return taken;

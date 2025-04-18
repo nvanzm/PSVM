@@ -3,20 +3,15 @@ package com.example.psvm.model;
 import java.util.Optional;
 
 public class Epic extends WorkItem {
+    public int id;
+    public String naam;
+    public String beschrijving;
 
-    public boolean createNewWorkItem(String naam, String beschrijving, int team_id) {
-        Optional<Integer> Epics = workItemDB.addNewEpic(naam, beschrijving, team_id);
-        System.out.println("Workitem added");
+    public Epic(int id, String naam, String beschrijving) {
+        super(naam, beschrijving, id);
+    }
 
-        if (Epics.isPresent()) {
-            this.id = Epics.get();
-            this.naam = naam;
-            this.beschrijving = beschrijving;
-            System.out.println("Workitem added: " + naam);
-            return true;
-        } else {
-            System.out.println("Workitem not added");
-            return false;
-        }
+    public int getParentId() {
+        return 0;
     }
 }

@@ -2,6 +2,7 @@ package com.example.psvm;
 
 import com.example.psvm.database.ChatDB;
 import com.example.psvm.model.Chat;
+import com.example.psvm.model.ScrumBoard;
 import com.example.psvm.model.Team;
 import com.example.psvm.model.User;
 import javafx.application.Application;
@@ -19,6 +20,7 @@ public class Startup extends Application {
     private static Chat chat;
     private static ChatDB chatDB;
     private static Team team;
+    private static ScrumBoard scrumBoard;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -28,8 +30,10 @@ public class Startup extends Application {
 
         user = new User();
         chatDB = new ChatDB();
-        chat = new Chat(chatDB);
         team = new Team();
+        scrumBoard = new ScrumBoard();
+        chat = new Chat(chatDB);
+
 
         if (loginDataFile.exists()) {
             String storedData = readStoredLoginData(loginDataFile);
@@ -75,5 +79,9 @@ public class Startup extends Application {
 
     public static Team getTeam() {
         return team;
+    }
+
+    public static ScrumBoard getScrumBoard() {
+        return scrumBoard;
     }
 }

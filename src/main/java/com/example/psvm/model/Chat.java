@@ -5,16 +5,19 @@ import com.example.psvm.util.errors.DomainException;
 
 import java.util.List;
 
+import static com.example.psvm.Startup.getScrumBoard;
 import static com.example.psvm.Startup.getUser;
 
 public class Chat {
     private final ChatDB chatDB;
     private User currentUser;
     private List<Message> messages;
+    private final ScrumBoard scrumBoard;
 
     public Chat(ChatDB chatDB) {
         this.chatDB = chatDB;
         this.currentUser = getUser();
+        this.scrumBoard = getScrumBoard();
     }
 
     public void sendChatMessage(int userId, String messageText, int team_id, Integer itemId, String itemType) {
@@ -30,6 +33,9 @@ public class Chat {
     }
 
     public List<Message> getMessages(int team_id) {
-        return chatDB.getMessages(team_id);
+        messages = chatDB.getMessages(team_id);
+        scrumBoard.load(team_id);
+        return scrumBoard.enrichMessagesWithWorkItems(messages);
     }
+
 }

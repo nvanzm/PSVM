@@ -8,6 +8,8 @@ public class Message {
     private int parentId;
     private Integer itemId;
     private String itemType;
+    private WorkItem workItem;
+
 
     // Getters en setters
     public int getId() {
@@ -62,21 +64,42 @@ public class Message {
         this.itemType = itemType;
     }
 
+    public WorkItem getWorkItem() {
+        return workItem;
+    }
+
+    public void setWorkItem(WorkItem workItem) {
+        this.workItem = workItem;
+    }
+
+    public String getItemType() {
+        return itemType;
+    }
+
     public String getTypeLabel() {
-        switch (itemType) {
-            case "epic": return "E";
-            case "user_story": return "US";
-            case "taak": return "T";
-            default: return "A";
+        if (itemType == null) {
+            return "Algemeen";
+        }
+
+        switch (itemType.toLowerCase()) {
+            case "epic": return "Epic";
+            case "user_story": return "User Story";
+            case "taak": return "Taak";
+            default: return "Algemeen";
         }
     }
 
     public String getStyleClassForType() {
-        switch (itemType) {
+        if (itemType == null) {
+            return "algemeen-circle";
+        }
+
+        switch (itemType.toLowerCase()) {
             case "epic": return "epic-circle";
             case "user_story": return "us-circle";
             case "taak": return "taak-circle";
             default: return "algemeen-circle";
         }
     }
+
 }

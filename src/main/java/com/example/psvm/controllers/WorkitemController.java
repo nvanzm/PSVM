@@ -7,8 +7,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-import static com.example.psvm.Startup.getTeam;
-import static com.example.psvm.Startup.getUser;
+import static com.example.psvm.Startup.*;
 
 public class WorkitemController {
     @FXML
@@ -28,23 +27,19 @@ public class WorkitemController {
 
 
     private final ResolutionController resolutionManager = ResolutionController.getInstance();
-    private Taak taak;
     private UserStory userStory;
     private Epic epic;
     private Team team;
     private int team_id;
     private User user;
-    private WorkItem workItem;
+    private ScrumBoard scrumBoard;
 
     @FXML
     public void initialize() {
         WorkItemPlusButton.setOnAction(event -> {addWorkitem();});
         this.team = getTeam();
         this.user = getUser();
-        this.epic = new Epic();
-        this.userStory = new UserStory();
-        this.taak = new Taak();
-        this.workItem = new WorkItem();
+        this.scrumBoard = getScrumBoard();
         this.team_id = user.getTeamIdById(user.getId());
         typeSelectie.getItems().addAll("epic", "user_story", "taak");
         typeSelectie.setOnAction(event -> {setComboBox(); setLabel();});
@@ -65,11 +60,11 @@ public class WorkitemController {
         switch (keuze) {
             case "user_story":
                 koppelSelectie.getItems().clear();
-                koppelSelectie.getItems().addAll(workItem.getAllEpics(team_id));
+                koppelSelectie.getItems().addAll(scrumBoard.getAllEpics(team_id));
                 break;
             case "taak":
                 koppelSelectie.getItems().clear();
-                koppelSelectie.getItems().addAll(workItem.getAllUserstories(team_id));
+                koppelSelectie.getItems().addAll(scrumBoard.getAllUserstories(team_id));
                 break;
             default:
                 koppelSelectie.getItems().clear();
@@ -87,19 +82,19 @@ public class WorkitemController {
             System.out.println("Lege velden.");
             toegevoegd.setText("Workitem " + WInaam+" is niet toegevoegd, er zijn lege velden");
         } if (WType.equals("epic")) {
-            boolean workitemCreated = epic.createNewWorkItem(WInaam, WBeschrijving, team_id);
+            boolean workitemCreated = scrumBoard.createNewEpic(WInaam, WBeschrijving, team_id);
             System.out.println(workitemCreated);
             toegevoegd.setText("Epic " + WInaam+" is toegevoegd");
             workitemNameField.clear();
             workitemBeschrijving.clear();
         } if (WType.equals("user_story")){
-            boolean workitemCreated = userStory.createNewWorkItem(WInaam, WBeschrijving, workItem.getWorkItemIdByName(WKoppel, "epic"), team_id);
+            boolean workitemCreated = scrumBoard.createNewUserStory(WInaam, WBeschrijving, scrumBoard.getWorkItemIdByName(WKoppel, "epic"), team_id);
             System.out.println(workitemCreated);
             toegevoegd.setText("Userstory " + WInaam+" is toegevoegd");
             workitemNameField.clear();
             workitemBeschrijving.clear();
         } if (WType.equals("taak")) {
-            boolean workitemCreated = taak.createNewWorkItem(WInaam, WBeschrijving, workItem.getWorkItemIdByName(WKoppel, "user_story"), team_id);
+            boolean workitemCreated = scrumBoard.createNewTaak(WInaam, WBeschrijving, scrumBoard.getWorkItemIdByName(WKoppel, "user_story"), team_id);
             System.out.println(workitemCreated);
             toegevoegd.setText("Taak " + WInaam+" is toegevoegd");
             workitemNameField.clear();
