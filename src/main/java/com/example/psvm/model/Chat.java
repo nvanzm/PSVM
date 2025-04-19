@@ -14,6 +14,12 @@ public class Chat {
     private List<Message> messages;
     private final ScrumBoard scrumBoard;
 
+    /**
+     * Constructs a new Chat instance with the provided ChatDB instance.
+     * Initializes the current user and scrum board for the chat.
+     *
+     * @param chatDB the ChatDB instance used for database operations related to chat functionality
+     */
     public Chat(ChatDB chatDB) {
         this.chatDB = chatDB;
         this.currentUser = getUser();

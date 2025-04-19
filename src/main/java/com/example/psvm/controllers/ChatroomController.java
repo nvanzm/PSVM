@@ -29,6 +29,11 @@ import java.util.List;
 import static com.example.psvm.Startup.getChat;
 import static com.example.psvm.Startup.getUser;
 
+/**
+ * The ChatroomController class manages the functionality of the chatroom interface,
+ * including sending and displaying chat messages, handling user interactions, and refreshing
+ * the chat display.
+ */
 public class ChatroomController {
 
     @FXML

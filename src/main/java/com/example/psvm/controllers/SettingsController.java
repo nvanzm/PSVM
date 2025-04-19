@@ -4,6 +4,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.HBox;
 
+/**
+ * The SettingsController class is responsible for managing the settings view logic,
+ * specifically handling the resolution selection and applying the corresponding user interface changes.
+ * This class interacts with the ResolutionController to fetch and update the current resolution settings.
+ */
 public class SettingsController {
 
     @FXML

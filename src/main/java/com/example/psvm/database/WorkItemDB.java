@@ -9,6 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The WorkItemDB class provides methods to interact with the database for managing
+ * work items such as epics, user stories, and tasks. This class allows retrieval of
+ * work items by team ID, adding new work items, and fetching work item IDs by name and type.
+ */
 public class WorkItemDB {
 
     public List<Epic> getAllEpics(int teamID) {

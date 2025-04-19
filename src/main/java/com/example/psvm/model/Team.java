@@ -5,6 +5,12 @@ import com.example.psvm.database.TeamDB;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The Team class represents a project team within an application.
+ * It provides methods to interact with team data, including creating new teams,
+ * retrieving team information, and managing team attributes.
+ * The class integrates with a TeamDB instance to perform database operations.
+ */
 public class Team {
     private int id;
     private String name;

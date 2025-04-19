@@ -7,6 +7,12 @@ import java.util.List;
 import java.util.Optional;
 
 
+/**
+ * The ScrumBoard class serves as a management tool for handling work items
+ * such as Epics, User Stories, and Tasks within a Scrum environment. It provides
+ * functionality to load, retrieve, create, and enrich work item data in coordination
+ * with a database abstraction layer {@link WorkItemDB}.
+ */
 public class ScrumBoard {
     WorkItemDB workItemDB;
 

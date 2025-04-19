@@ -10,6 +10,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
+/**
+ * The TypeController class is responsible for controlling the interaction between
+ * the user interface and the backend logic related to different types of work items
+ * (Epic, User Story, Task). It manages the display of information about these work
+ * items on the UI and handles specific user actions.
+ */
 public class TypeController {
     private ScrumBoard scrumBoard;
 

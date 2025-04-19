@@ -5,6 +5,10 @@ import com.example.psvm.database.UserDB;
 
 import java.util.Optional;
 
+/**
+ * Represents a User in the system, handling operations such as logging in, joining teams,
+ * and retrieving user or team-related information.
+ */
 public class User {
     private int id;
     private int team_id;

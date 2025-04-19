@@ -20,6 +20,12 @@ import java.util.Objects;
 import static com.example.psvm.Startup.getUser;
 
 
+/**
+ * The NavigationController class manages navigation within the application and is responsible
+ * for handling UI interactions related to scene transitions and user-specific actions.
+ * It utilizes the NavigationManager to load different views and ensures user-specific
+ * data is displayed in the interface, such as a personalized welcome message.
+ */
 public class NavigationController {
 
     @FXML

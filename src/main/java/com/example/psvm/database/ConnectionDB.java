@@ -5,6 +5,11 @@ import com.zaxxer.hikari.HikariDataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * The ConnectionDB class is responsible for managing database connections using
+ * the HikariCP connection pooling library. It provides utility methods to acquire
+ * and close connections to the database.
+ */
 public class ConnectionDB {
 
     private static HikariDataSource dataSource;

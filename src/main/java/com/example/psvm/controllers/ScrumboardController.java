@@ -9,6 +9,12 @@ import javafx.stage.Stage;
 
 import static com.example.psvm.Startup.*;
 
+/**
+ * ScrumboardController manages the interaction between the UI components
+ * and the underlying ScrumBoard data model. It is responsible for loading
+ * and displaying epics, user stories, and tasks associated with a team,
+ * and for handling user interactions with these work items.
+ */
 public class ScrumboardController {
 
     @FXML

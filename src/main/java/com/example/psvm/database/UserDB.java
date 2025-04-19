@@ -5,6 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The UserDB class provides methods to interact with the database for managing
+ * user-related operations such as retrieving a team's ID based on its name and
+ * associating users with teams.
+ */
 public class UserDB {
     public Optional<Integer> getIDFromTeamName(String teamName) {
         String query = "SELECT id FROM team WHERE naam = ?";

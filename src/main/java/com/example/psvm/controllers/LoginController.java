@@ -24,6 +24,11 @@ import java.net.NetworkInterface;
 
 import static com.example.psvm.Startup.getUser;
 
+/**
+ * The LoginController class handles the user interface and actions related to logging in to the system.
+ * The class communicates with the backend to validate user credentials and provides feedback
+ * to the user on the success or failure of the login attempt.
+ */
 public class LoginController {
     private User user;
 

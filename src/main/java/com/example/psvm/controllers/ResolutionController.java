@@ -2,6 +2,11 @@ package com.example.psvm.controllers;
 
 import java.util.prefs.Preferences;
 
+/**
+ * The ResolutionController class is responsible for managing and persisting
+ * screen resolution settings for the application. This includes retrieving the
+ * current resolution and updating it as needed.
+ */
 public class ResolutionController {
     private static final ResolutionController INSTANCE = new ResolutionController();
     private final Preferences prefs;

@@ -9,6 +9,17 @@ import javafx.scene.control.TextField;
 
 import static com.example.psvm.Startup.*;
 
+/**
+ * The WorkitemController class represents a controller responsible for managing
+ * the creation and association of work items within a Scrum framework.
+ * It provides functionality for interacting with Work Items such as
+ * Epics, User Stories, and Tasks, allowing the user to input and link
+ * work item details through a graphical user interface.
+ *
+ * The class interacts with various components including the ScrumBoard, Team,
+ * User, and ResolutionController to fetch or process data needed for managing
+ * work items.
+ */
 public class WorkitemController {
     @FXML
     private Button WorkItemPlusButton;

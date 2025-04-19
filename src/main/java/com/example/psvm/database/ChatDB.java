@@ -10,6 +10,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The ChatDB class provides methods to interact with the database for managing and retrieving
+ * chat messages within a team. It includes functionality to send messages and fetch messages
+ * belonging to a specific team.
+ */
 public class ChatDB {
 
     public boolean sendMessage(int userId, String message, int team_id, Integer itemId, String itemType) {

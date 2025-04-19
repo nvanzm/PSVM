@@ -14,6 +14,13 @@ import static com.example.psvm.Startup.getTeam;
 import static com.example.psvm.Startup.getUser;
 
 
+/**
+ * The TeamsController class serves as a JavaFX controller responsible for managing
+ * team-related actions in the user interface. This class facilitates the creation of
+ * new teams, the retrieving of existing teams for selection, and the process of
+ * joining a selected team.
+
+ */
 public class TeamsController {
     @FXML
     private Button plusButton;

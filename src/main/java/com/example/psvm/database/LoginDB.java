@@ -6,6 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
+/**
+ * The LoginDB class provides methods to interact with the database for user-related operations.
+ * This includes retrieving user information like user ID, username, and team ID based on
+ * specified criteria.
+ */
 public class LoginDB {
 
     public Optional<Integer> getUserIdByUsername(String username) {

@@ -1,5 +1,12 @@
 package com.example.psvm.model;
 
+/**
+ * The WorkItem class represents an abstract base class for work items
+ * in a project management context. This class defines the common properties
+ * and behavior of work items, such as name, description, and ID. Specific
+ * types of work items should extend this class and implement its abstract
+ * methods.
+ */
 public abstract class WorkItem {
     protected String naam;
     protected String beschrijving;

@@ -1,5 +1,11 @@
 package com.example.psvm.model;
 
+/**
+ * Represents a single message entity with associated metadata.
+ * This class provides information about a message such as its content,
+ * associated user, team, parent message, related work item, and type.
+ * It includes utility methods to derive additional details about the message type.
+ */
 public class Message {
     private int id;
     private String text;

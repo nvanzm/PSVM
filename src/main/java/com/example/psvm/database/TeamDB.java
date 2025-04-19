@@ -5,6 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The TeamDB class provides methods for interacting with the team-related data
+ * stored in the database. It includes functionality for adding a new team,
+ * retrieving all team names, and fetching a team name by its identifier.
+ */
 public class TeamDB {
     public Optional<Integer> addNewTeamToDB(String teamNaam) {
         String query = "INSERT INTO team (naam) VALUES (?)";
