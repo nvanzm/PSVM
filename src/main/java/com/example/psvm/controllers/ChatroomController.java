@@ -107,7 +107,7 @@ public class ChatroomController {
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
-            } else {
+            } else if ("Algemene chat".equals(selected)) {
                 setSelectedItem(null);
             }
         });
@@ -175,11 +175,56 @@ public class ChatroomController {
         for (Message message : messages) {
             WorkItem parentItem = message.getWorkItem();
 
-            if (parentItem == null) {
-                continue;
-            }
+            if (selectedItem == null ) {
+                String username = user.getNameById(message.getUserId());
 
-            if (selectedItem == null || parentItem.getId() == selectedItem.getId()) {
+                Label usernameLabel = new Label(username);
+                usernameLabel.getStyleClass().add("username-label");
+                usernameLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: #333; -fx-font-size: 12px;");
+
+                Label messageLabel = new Label(message.getText());
+                messageLabel.getStyleClass().add("message-label");
+
+                HBox typeIndicator = new HBox();
+                Circle typeCircle = new Circle(10);
+                Label typeLabel = new Label(message.getTypeLabel());
+
+                typeCircle.getStyleClass().add(message.getStyleClassForType());
+
+                typeCircle.setOnMouseClicked(event -> {
+                    try {
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/psvm/screens/type-modal.fxml"));
+                        Parent root = loader.load();
+
+                        TypeController controller = loader.getController();
+                        controller.setMessage(message);
+
+                        Stage modalStage = new Stage();
+                        modalStage.initModality(Modality.APPLICATION_MODAL);
+                        modalStage.setScene(new Scene(root));
+                        modalStage.showAndWait();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
+
+                typeIndicator.getChildren().addAll(typeCircle, typeLabel);
+                typeIndicator.setSpacing(5);
+
+                HBox messageBox = new HBox(10);
+                VBox messageContent = new VBox(3);
+                messageContent.getChildren().addAll(usernameLabel, messageLabel);
+
+                messageBox.getChildren().addAll(typeIndicator, messageContent);
+
+                if (message.getUserId() == user.getId()) {
+                    messageBox.setStyle("-fx-alignment: CENTER_RIGHT;");
+                } else {
+                    messageBox.setStyle("-fx-alignment: CENTER_LEFT;");
+                }
+
+                chatMessages.getChildren().add(messageBox);
+                } else if ( parentItem!= null && parentItem.getId() == selectedItem.getId()) {
                 String username = user.getNameById(message.getUserId());
 
                 Label usernameLabel = new Label(username);
