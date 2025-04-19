@@ -12,7 +12,7 @@ public class Message {
 
 
     // Getters en setters
-    public int getId() {
+    public Object getId() {
         return id;
     }
 

@@ -8,7 +8,7 @@ import java.util.Optional;
 
 
 public class ScrumBoard {
-    private final WorkItemDB workItemDB;
+    WorkItemDB workItemDB;
 
     public HashMap<Integer, Epic> epicMap = new HashMap<>();
     public HashMap<Integer, UserStory> userStoryMap = new HashMap<>();
@@ -17,6 +17,10 @@ public class ScrumBoard {
 
     public ScrumBoard() {
         workItemDB = new WorkItemDB();
+    }
+
+    public void setWorkItemDB(WorkItemDB workItemDB){
+        this.workItemDB = workItemDB;
     }
 
     public void load(int teamId) {
@@ -62,25 +66,34 @@ public class ScrumBoard {
     }
 
     public String getEpicNameById(int id) {
-        Epic epic = epicMap.get(id);
+        Epic epic = epicMap.get(Integer.valueOf(id));
+        return epic != null ? epic.getNaam() : "Onbekende Epic";
+    }
+
+    public String getEpicdDescById(int id) {
+        Epic epic = epicMap.get(Integer.valueOf(id));
         return epic != null ? epic.getNaam() : "Onbekende Epic";
     }
 
     public UserStory getUserStoryById(int id) {
-        UserStory userStory = userStoryMap.get(id);
+        UserStory userStory = userStoryMap.get(Integer.valueOf(id));
         return userStory != null ? userStory : null;
     }
 
     public String getUserStoryNameById(int id) {
-        UserStory userStory = userStoryMap.get(id);
+        UserStory userStory = userStoryMap.get(Integer.valueOf(id));
         return userStory != null ? userStory.getNaam() : "Onbekende User Story";
     }
-
-
-    public String getTaakNameById(int id) {
-        Taak taak = taakMap.get(id);
-        return taak != null ? taak.getNaam() : "Onbekende Taak";
+    public String getUserStoryDescById(int id) {
+        UserStory userStory = userStoryMap.get(Integer.valueOf(id));
+        return userStory != null ? userStory.getBeschrijving() : "Onbekende User Story";
     }
+
+
+//    public String getTaakNameById(int id) {
+//        Taak taak = taakMap.get(id);
+//        return taak != null ? taak.getNaam() : "Onbekende Taak";
+//    }
 
 
     public boolean createNewEpic(String naam, String beschrijving, int team_id) {

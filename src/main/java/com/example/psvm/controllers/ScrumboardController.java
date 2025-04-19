@@ -1,9 +1,6 @@
 package com.example.psvm.controllers;
 
-import com.example.psvm.model.SelectedItem;
-import com.example.psvm.model.Team;
-import com.example.psvm.model.User;
-import com.example.psvm.model.ScrumBoard;
+import com.example.psvm.model.*;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -23,7 +20,7 @@ public class ScrumboardController {
     @FXML
     private VBox takenBox;
 
-    private final ScrumBoard workItem = getScrumBoard();
+    private final ScrumBoard scrumBoard = getScrumBoard();
     private Team team;
     private int team_id;
     private User user;
@@ -45,22 +42,26 @@ public class ScrumboardController {
     }
 
     private void loadEpics() {
-        workItem.getAllEpics(team_id).forEach(epic -> {
+        scrumBoard.getAllEpics(team_id).forEach(epic -> {
             Label label = createSelectableLabel(epic.getNaam(), "epic");
+            label.setUserData(epic);
             epicsBox.getChildren().add(label);
         });
     }
 
     private void loadUserStories() {
-        workItem.getAllUserstories(team_id).forEach(userStory -> {
+        scrumBoard.getAllUserstories(team_id).forEach(userStory -> {
             Label label = createSelectableLabel(userStory.getNaam(), "user_story");
+            label.setUserData(userStory);
             userStoriesBox.getChildren().add(label);
         });
     }
 
+
     private void loadTaken() {
-        workItem.getAllTaken(team_id).forEach(taak -> {
+        scrumBoard.getAllTaken(team_id).forEach(taak -> {
             Label label = createSelectableLabel(taak.getNaam(), "taak");
+            label.setUserData(taak);
             takenBox.getChildren().add(label);
         });
     }
@@ -70,17 +71,15 @@ public class ScrumboardController {
         label.setStyle("-fx-cursor: hand;");
 
         label.setOnMouseClicked(event -> {
-            Integer id = workItem.getWorkItemIdByName(naam, type);
-            if (id != null && chatroomController != null) {
-                chatroomController.setSelectedItem(new SelectedItem(id, type));
-                Scene scene = label.getScene();
-                if (scene != null) {
-                    Stage stage = (Stage) scene.getWindow();
-                    stage.close();
-                }
+            WorkItem obj = (WorkItem) label.getUserData();
+            if (obj instanceof WorkItem item && chatroomController != null) {
+                chatroomController.setSelectedItem(obj);
+                Stage stage = (Stage) label.getScene().getWindow();
+                if (stage != null) stage.close();
             }
         });
 
         return label;
     }
+
 }

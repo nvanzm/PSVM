@@ -22,15 +22,15 @@ public class ChatDB {
             preparedStatement.setString(2, message);
             preparedStatement.setInt(3, team_id);
 
-            if ("epic".equals(itemType)) {
+            if ("Epic".equals(itemType)) {
                 preparedStatement.setInt(4, itemId);
                 preparedStatement.setNull(5, java.sql.Types.INTEGER);
                 preparedStatement.setNull(6, java.sql.Types.INTEGER);
-            } else if ("user_story".equals(itemType)) {
+            } else if ("UserStory".equals(itemType)) {
                 preparedStatement.setNull(4, java.sql.Types.INTEGER);
                 preparedStatement.setInt(5, itemId);
                 preparedStatement.setNull(6, java.sql.Types.INTEGER);
-            } else if ("taak".equals(itemType)) {
+            } else if ("Taak".equals(itemType)) {
                 preparedStatement.setNull(4, java.sql.Types.INTEGER);
                 preparedStatement.setNull(5, java.sql.Types.INTEGER);
                 preparedStatement.setInt(6, itemId);

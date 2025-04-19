@@ -34,30 +34,44 @@ public class TypeController {
         switch (message.getItemType()) {
             case "epic":
                 formattedText = String.format(
-                        "Dit bericht betreft %s: %s.",
+                        "Bericht %s\n    Content: %s \n↓\n%s: %s\n    Beschrijving: %s",
+                        message.getId(),
+                        message.getText(),
                         message.getTypeLabel(),
-                        parentItem.getNaam()
+                        parentItem.getNaam(),
+                        parentItem.getBeschrijving()
                 );
                 break;
 
             case "user_story":
                 formattedText = String.format(
-                        "Dit bericht betreft %s: %s, die hoort bij de Epic: %s.",
+                        "Bericht %s\n    Content: %s \n↓\n%s: %s\n    Beschrijving: %s \n↓\nde Epic: %s. \n    Beschrijving: %s.",
+                        message.getId(),
+                        message.getText(),
                         message.getTypeLabel(),
                         parentItem.getNaam(),
-                        scrumBoard.getEpicNameById(parentItem.getParentId())
+                        parentItem.getBeschrijving(),
+                        scrumBoard.getEpicNameById(parentItem.getParentId()),
+                        scrumBoard.getEpicdDescById(parentItem.getParentId())
                 );
                 break;
 
             case "taak":
                 UserStory userStory = scrumBoard.getUserStoryById(parentItem.getParentId());
                 String epicName = scrumBoard.getEpicNameById(userStory.getParentId());
+                String epicDesc = scrumBoard.getEpicdDescById(userStory.getParentId());
+
                 formattedText = String.format(
-                        "Dit bericht betreft %s: %s, die hoort bij de User Story: %s. die hoort bij de Epic: %s.",
+                        "Bericht %s\n    Content: %s \n↓\n%s: %s\n    Beschrijving: %s \n↓\nde User Story: %s. \n    Beschrijving: %s.\n↓\nde Epic: %s. \n    Beschrijving: %s.",
+                        message.getId(),
+                        message.getText(),
                         message.getTypeLabel(),
                         parentItem.getNaam(),
-                        userStory.getNaam(),
-                        epicName
+                        parentItem.getBeschrijving(),
+                        scrumBoard.getUserStoryNameById(parentItem.getParentId()),
+                        scrumBoard.getUserStoryDescById(parentItem.getParentId()),
+                        epicName,
+                        epicDesc
                 );
                 break;
 

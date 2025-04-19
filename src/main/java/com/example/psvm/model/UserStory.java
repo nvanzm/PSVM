@@ -6,7 +6,7 @@ public class UserStory extends WorkItem {
     public int epicId;
 
     public UserStory(int id, String naam, String beschrijving, int epicId) {
-        super(naam, beschrijving, id);
+        super(naam, beschrijving, Integer.valueOf(id));
         this.epicId = epicId;
     }
 

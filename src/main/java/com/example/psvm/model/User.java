@@ -11,7 +11,7 @@ public class User {
     private String userName;
     private final LoginDB loginDB = new LoginDB();
     private String team;
-    private UserDB userDB = new UserDB();
+    UserDB userDB = new UserDB();
 
     private void setTeam(String team) {
         this.team = team;
@@ -48,16 +48,10 @@ public class User {
         }
     }
 
-    public boolean isUserLoggedIn(String username) {
-        return this.userName != null && this.userName.equals(username);
-    }
-
     public String getNameById(int id) {
         Optional<String> userIdOpt = loginDB.getUsernameById(id);
 
         if (userIdOpt.isPresent()) {
-            //tijdelijk uitgezet want het print als een while true..
-//            System.out.println(this.id);
             return userIdOpt.get();
         } else {
             throw new RuntimeException("Invalid username");

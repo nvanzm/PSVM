@@ -8,7 +8,7 @@ import java.util.Optional;
 public class Team {
     private int id;
     private String name;
-    private TeamDB teamDB;
+    TeamDB teamDB;
 
     public Team() {
 //        this.id = id;
