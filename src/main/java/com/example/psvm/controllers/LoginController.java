@@ -5,9 +5,6 @@ import com.example.psvm.database.LoginDB;
 import com.example.psvm.model.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
@@ -17,10 +14,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.Node;
-
-import java.io.*;
-import java.net.InetAddress;
-import java.net.NetworkInterface;
 
 import static com.example.psvm.Startup.getUser;
 
@@ -41,9 +34,6 @@ public class LoginController {
     private Button loginButton;
     @FXML
     private Label errorLabel;
-
-    @FXML
-    private CheckBox rememberMeCheckbox;
 
     private final LoginDB loginDB = new LoginDB();
 
