@@ -78,4 +78,8 @@ public class User {
     public int getTeamId() {
         return team_id;
     }
+
+    public void setId(int i) {
+        this.id = i;
+    }
 }

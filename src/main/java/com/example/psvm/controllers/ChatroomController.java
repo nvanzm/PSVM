@@ -26,6 +26,7 @@ import javafx.util.Duration;
 import java.io.IOException;
 import java.util.List;
 
+
 import static com.example.psvm.Startup.getChat;
 import static com.example.psvm.Startup.getUser;
 
@@ -37,34 +38,35 @@ import static com.example.psvm.Startup.getUser;
 public class ChatroomController {
 
     @FXML
-    private VBox chatMessages;
+    VBox chatMessages;
     @FXML
-    private TextField chatInput;
+    TextField chatInput;
     @FXML
-    private Button sendButton;
+    Button sendButton;
     @FXML
-    private HBox mainHBox;
+    HBox mainHBox;
     @FXML
-    private Label errorLabel;
+    Label errorLabel;
     @FXML
-    private VBox chatBox;
+    VBox chatBox;
     @FXML
-    private ScrollPane scrollPane;
+    ScrollPane scrollPane;
     @FXML
-    private Label teamChat;
+    Label teamChat;
     @FXML
-    private ComboBox<String> chatSelectie;
+    ComboBox<String> chatSelectie;
 
     private final ResolutionController resolutionManager = ResolutionController.getInstance();
 
-    private Chat chat;
-    private Team team;
-    private User user;
-    private List<Message> messages;
-    private int userId;
-    private int team_id;
-    private String team_name;
+    Chat chat;
+    Team team;
+    User user;
+    List<Message> messages;
+    int userId;
+    int team_id;
+    String team_name;
     private WorkItem selectedItem;
+    Timeline refreshTimeline;
 
     @FXML
     public void initialize() {
@@ -117,7 +119,7 @@ public class ChatroomController {
         });
 
         // chatbox refresh
-        Timeline refreshTimeline = new Timeline(
+        refreshTimeline = new Timeline(
                 new KeyFrame(Duration.seconds(3), event -> displayMessages())
         );
         refreshTimeline.setCycleCount(Timeline.INDEFINITE);
@@ -128,7 +130,7 @@ public class ChatroomController {
         this.selectedItem = workItem;
     }
 
-    private void applyResolution(String resolution) {
+    void applyResolution(String resolution) {
         String[] dimensions = resolution.split("x");
         if (dimensions.length == 2) {
             try {
@@ -236,5 +238,17 @@ public class ChatroomController {
 
     private void showErrorMessage(String message) {
         errorLabel.setText(message);
+    }
+
+    public ResolutionController getResolutionManager() {
+        return resolutionManager;
+    }
+
+    protected Chat getChat() {
+        return com.example.psvm.Startup.getChat();
+    }
+
+    protected User getUser() {
+        return com.example.psvm.Startup.getUser();
     }
 }
