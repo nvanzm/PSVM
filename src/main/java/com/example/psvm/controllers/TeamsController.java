@@ -52,6 +52,7 @@ public class TeamsController {
             boolean teamCreated = team.createNewTeam(teamNaam);
             if (teamCreated) {
                 teamSelectie.getItems().add(team.getName());
+                teamNameField.clear();
             }
         }
     }
