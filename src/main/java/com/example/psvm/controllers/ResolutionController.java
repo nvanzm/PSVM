@@ -1,5 +1,6 @@
 package com.example.psvm.controllers;
 
+import java.util.Objects;
 import java.util.prefs.Preferences;
 
 /**
@@ -12,7 +13,7 @@ public class ResolutionController {
     private final Preferences prefs;
     private String currentResolution;
 
-    private ResolutionController() {
+    ResolutionController() {
         prefs = Preferences.userNodeForPackage(ResolutionController.class);
         currentResolution = prefs.get("resolution", "1920x1080");
     }
@@ -26,8 +27,12 @@ public class ResolutionController {
     }
 
     public void setResolution(String resolution) {
-        currentResolution = resolution;
-        prefs.put("resolution", resolution);
+        if (Objects.equals(resolution, "1920x1080") || Objects.equals(resolution, "1550x880")) {
+            currentResolution = resolution;
+            prefs.put("resolution", resolution);
+        } else {
+            System.err.printf("Geen geldige resolutie.");
+        }
     }
 }
 

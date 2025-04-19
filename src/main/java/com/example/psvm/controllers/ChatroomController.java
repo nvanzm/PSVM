@@ -280,9 +280,9 @@ public class ChatroomController {
         Platform.runLater(() -> scrollPane.setVvalue(1.0));
     }
 
-
-    private void showErrorMessage(String message) {
+    void showErrorMessage(String message) {
         errorLabel.setText(message);
+        System.err.printf("Error: " + message);
     }
 
     public ResolutionController getResolutionManager() {

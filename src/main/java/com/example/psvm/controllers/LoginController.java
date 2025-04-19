@@ -37,7 +37,6 @@ public class LoginController {
 
     private final LoginDB loginDB = new LoginDB();
 
-
     @FXML
     private void initialize() {
         loginContainer.addEventHandler(KeyEvent.KEY_PRESSED, (key) -> {
@@ -47,11 +46,9 @@ public class LoginController {
         });
     }
 
-
     public LoginController() {
         this.user = getUser();
     }
-
 
     @FXML
     public void handleCloseAction(ActionEvent event) {
@@ -76,7 +73,7 @@ public class LoginController {
         }
     }
 
-    private void showError(String message) {
+    void showError(String message) {
         errorLabel.setStyle("-fx-text-fill: red;");
         errorLabel.setText(message);
     }

@@ -81,5 +81,4 @@ public class NavigationController {
             stage.close();
         }
     }
-
 }
